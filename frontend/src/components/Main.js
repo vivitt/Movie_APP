@@ -1,17 +1,13 @@
-
-
 import Movie from "./Movie";
 
-import Loader from "./Loader";
 
 
-function Main({filtMovies, loading}) {
+
+function Main({filtMovies}) {
  
    return (<div className="movies">
-        {(loading) && <Loader />}
-        
-        <ul>
-          {filtMovies.map(item => (Movie({item, filtMovies}) ))}
+      <ul>
+          {filtMovies.map(item => ( <Movie item={item} /> )) }
        </ul>
         
     </div>)

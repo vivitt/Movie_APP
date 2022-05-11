@@ -75,7 +75,7 @@ app.use(session({
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24,
     sameSite: true,
-    secure: process.env.NODE_ENV !== "development"
+    secure: false
   },
 }));
 
@@ -90,7 +90,7 @@ mongoose.connect(process.env.DB_SERVER)
 .catch((err) => console.log(err));
 
 // routes
-app.get('/', function(req,res) {return res.redirect('/movies')})
+// app.get('/', function(req,res) {return res.redirect('/movies')})
 app.use('/movies', moviesRoutes);
 app.use('/users', usersRoutes);
 app.use('/auth', authRoutes)

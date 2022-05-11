@@ -5,7 +5,7 @@ const userController = require('../controllers/userController')
 const authorization = require("../middleware/authorization")
 
 
-
+router.get('/', authorization.checkAuthenticated, userController.getUser);
 router.get('/favorites', authorization.checkAuthenticated, userController.getFavorites)
 
 router.post('/favorites/:movie', authorization.checkAuthenticated, userController.addToFavorites)

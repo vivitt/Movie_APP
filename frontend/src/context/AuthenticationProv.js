@@ -1,39 +1,60 @@
 
-import React, {useContext}  from "react";
+import React, {useContext, useEffect, useState}  from "react";
+import { useLoader } from "./LoadContext";
 
-import { Navigate, useLocation } from 'react-router-dom';
-import {useUserContext, UserContext} from './UserContextProv'
+const AuthenContext = React.createContext("")
 
 
-const RequireAuth = ({children}) => {
+const AuthenticationProv = ({ children }) => {    
     
-    const authUser = useUserContext()
-    
-    const location = useLocation()
+    const [ authData, setAuthData ] = useState({})
+    const { setLoading }  = useLoader();
+ 
+    async function getLogUser() {
+        console.log('1')
 
-    if(authUser.userData.email === "") {
-        return <Navigate to="/login" state={{ from : location }} replace />
+        const response = await fetch("/users", {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                Accept: 'application/json',
+            },
+        });
+        try {
+            if(response.ok) {
+                const data = await response.json();
+                onLogin(data);
+                setLoading(false);
+                console.log('dta', data);
+                return data;
+            }
+            setLoading(false);
+            console.log('no user dtaa')
+            throw new Error(response.statusText);    
+        } catch (error) {
+            console.log(error)
+            return null;
+        }
     }
-    return   children
 
-    
+    useEffect(() => { getLogUser();}, [setLoading]);
+
+    const onLogin = (value) => setAuthData(value);
+    const onLogout = () => setAuthData({});
+
+    const value = {
+        authData, 
+        onLogin,
+        onLogout
+    };
+
+    return (
+        <AuthenContext.Provider value={value}>
+            {children}
+        </AuthenContext.Provider>
+    )
+
 }
 
-export default RequireAuth
-
-
-
-// export const RequireAuth = ({ children }) => {
-//   const { authData } = useState(false);
-//   const location = useLocation();
-//   console.log({authData})
-//   if (!authData) {
-//     return <Navigate to="/login" state={{ from: location }} replace />
-//   }
-
-//   return   <AuthContext.Provider value={{authData}}>
-//   //       {children}
-//   //     </AuthContext.Provider>;
-// }
-
-// export default RequireAuth
+export default AuthenticationProv;
+export const useAuth = () => useContext(AuthenContext)

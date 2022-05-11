@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+
 import Page from "../components/Page";
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../context/UserContextProv"
-import { RequireAuth } from "../context/AuthenticationProv"
+import { useAuth } from "../context/AuthenticationProv";
 //import { UserContext } from "../context/UserContextProv";
 
 const Login = ( ) => {
@@ -14,6 +14,8 @@ const Login = ( ) => {
   const activeUser = useUserContext();
   const navigate = useNavigate();
   const [errMessage, setErrMessage] = useState("");
+  const { onLogin } = useAuth();
+
   function logInUser(event) {
     
     event.preventDefault();
@@ -26,7 +28,7 @@ const Login = ( ) => {
       .then ( response => response.json())
       .then(data => {
         activeUser.setUserData({name: data.name, email: data.email})
-        
+        onLogin({ email: data.email, name: data.name })
         console.log(activeUser.userData.name, '---> logged')
         navigate('/', {replace: true})
         setEmail('');

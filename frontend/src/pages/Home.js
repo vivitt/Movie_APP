@@ -7,22 +7,20 @@ import { useUserContext } from "../context/UserContextProv"
 import { useState, useEffect } from "react";
 
 
-
 const Home = () => {
   //USER
   const activeUser = useUserContext();
   const userName = activeUser.userData.name.charAt(0).toUpperCase() + activeUser.userData.name.slice(1)
-     
-  //LOADER 
-  const [loading, setLoading] = useState(false);
-    
+  
+  
+
   //MOVIES
   const [movies, setMovies] = useState([]);
   const [filtMovies, setFiltMovies] = useState([]);
   
   const getMovies = () => {
      
-    setLoading(true);
+    
      
     fetch ("/movies")
       .then (response => response.json())
@@ -31,7 +29,7 @@ const Home = () => {
         setFiltMovies(data.movies)
         //  console.log(data.movies)
       })
-      .then (setLoading(false))
+      
       .catch(err => console.log(err))
     }
   
@@ -41,12 +39,12 @@ const Home = () => {
 
     return (
     <Page>
-    {(activeUser.userData.name) && 
-    <Title name={userName}/>}
-
-    <SearchBar  setFiltMovies={setFiltMovies} />
-    <Main filtMovies = { filtMovies } loading={ loading } />
-    
+   
+    <Title name={userName}/>
+    <SearchBar  setFiltMovies={setFiltMovies} filtMovies={filtMovies} />
+   
+    <Main filtMovies = { filtMovies }  />
+      
    
     </Page>
   );

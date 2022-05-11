@@ -9,27 +9,35 @@ import {
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { useParams } from 'react-router-dom';
+
 import NotFound from './pages/NotFound';
-import InfoMovie from './components/InfoMovie';
+
 import Footer from './components/Footer';
 import UserButton from './components/UserButton';
 
 import {UserContextProv} from "./context/UserContextProv"
 import UserFavs from "./pages/UserFavs";
-import RequireAuth from "./context/AuthenticationProv";
-
+import RequireAuth from "./context/RequireAuth";
+import { useUserContext } from "./context/UserContextProv";
 //import movies from './movies';
+import AuthenticationProv from "./context/AuthenticationProv";
+import Loader from './components/Loader';
+import { useLoader } from './context/LoadContext'
 
 function App() {
   //Loader
-  //const categories =  movies.map ((item, category) => item = category.value)
-  //const items = movies;
+  const { isLoading } = useLoader();
 
+  const activeUser = useUserContext();
+  console.log('active user:', activeUser)
 
-  
+   
   return (
+    <AuthenticationProv>
     <UserContextProv >
+        
+       { isLoading ? ( <Loader></Loader>
+      ) : (
     <div className="app">
       <Router>
         <div className="nav-bar">
@@ -40,6 +48,7 @@ function App() {
             <li>
               <NavLink to="/">Home </NavLink>
             </li>
+            
             <li>
               
               <NavLink to="/users"><i className="fa-solid fa-star"></i>My WatchList</NavLink>
@@ -48,6 +57,7 @@ function App() {
             </ul>
             
         </div>
+      
         <main>
           <Routes>
             <Route path="/" element={<Home />} /> 
@@ -56,12 +66,14 @@ function App() {
             <Route path="/users" element={ <RequireAuth> <UserFavs /> </RequireAuth> } />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </main>
+        </main> 
       </Router>
       <Footer text={'© Viviana Yanez 2022 | Made with ♥︎ '}/>
     </div>
+      )}
+     
     </UserContextProv>
-    
+    </AuthenticationProv>
   );
 }
 

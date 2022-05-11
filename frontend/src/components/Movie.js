@@ -13,8 +13,7 @@ function Movie({item}) {
     const params = useParams()
     
     function openMovieInfo() {
-        
-        setInfoMovie({ category: "", poster: "", title: "", plot: "", year: "", rating: "" })
+        setInfoMovie({ category: "", poster: "", title: "", plot: "", year: "", rating: "" });
         if (infoMovie.title === "") {
         setInfoMovie({ category: item.category, poster: item.poster, title: item.title, plot: item.plot, year: item.year, rating: item.rating })
        } else {
@@ -23,9 +22,7 @@ function Movie({item}) {
     }
 
     function closeMovInfo() {
-        
         setInfoMovie({ category: "", poster: "", title: "", plot: "", year: "", rating: "" })
-        
     }
     
     function addToFavs(event) {
@@ -45,42 +42,26 @@ function Movie({item}) {
             
             .catch(error => console.log(error))
         }
-        
-    // function removeFromFavs(event) {
-    //         event.preventDefault()
-    //         const requestOptions = {
-    //             method: 'POST',
-    //             credentials: "include",
-    //             headers: { 'Content-Type': 'application/json'},
-    //         };
-    //         fetch(`/users/removefavorites/${item.title}`, requestOptions)
-    //             .then(res =>res.json())
-    //                 navigate('/')
-    //                 console.log('removed')
-    //         .catch(error => console.log(error))
-    //     }
-        
-    
-
-
+ 
     return (
        <li key={item._id}>
            <div className="movieItem">
-            <button onClick={openMovieInfo} >  <span><img src={item.poster} alt={item.title}/></span></button>
-            <p> {item.title}</p>
-            <p>{item.year}</p>
-            
-            { (activeUser.userData.name) &&
-            <span className="favButons"> 
-                <FavButton handler={addToFavs} icon={<i class="fa-solid fa-star"></i>} />
-               
-            </span>
-            }
-             { (activeUser.userData.name)&& (infoMovie.title) &&
+                <button onClick={openMovieInfo}  className="movieBtn" >  
+                    <span className="movieImg" >
+                        <img src={item.poster} alt={item.title}/>
+                    </span>
+                </button>
+                <h4 className="movieTitle"> {item.title}</h4>
+                
+                { (activeUser.userData.name) &&
+                <span className="favButons"> 
+                    <FavButton handler={addToFavs} icon={<i class="fa-solid fa-star">Add to WachList</i>} />
+                </span>
+                }
+            { (activeUser.userData.name)&& (infoMovie.title) &&
                 <div className="movInfo">
-                    
-                <InfoMovie movie={item}/>
-                <button onClick={closeMovInfo}>X</button>
+                    <InfoMovie movie={item}/>
+                    <button onClick={closeMovInfo}><i className="fa-solid fa-xmark"></i></button>
                 </div>
             }
             </div>

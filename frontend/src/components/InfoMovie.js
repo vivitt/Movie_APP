@@ -2,19 +2,18 @@
 function InfoMovie({movie}) {
     
     
-    console.log(movie.title)
+    // console.log(movie.title)
     return (
-      
-           <div className="Info">
-            
-            
-            
-            <p>{movie.year}</p>
-            <p>{movie.category}</p>
+        <div className="Info">
+            <div>
             <p>{movie.plot}</p>
-            <p>{movie.rating} ★ </p>
-            
             </div>
+            <div>
+            <p>{movie.year}</p>
+            <p><i>{movie.category}</i></p>
+            <p>★ {movie.rating}</p>
+            </div>
+        </div>
        
     )
     }
