@@ -9,11 +9,8 @@ import { useAuth } from "../context/AuthenticationProv";
 const Home = () => {
   //USER
   const {authData} = useAuth();
+  const userName = authData.name;
 
-  const userName = authData.name
-  
-  
-  
   //MOVIES
   const [movies, setMovies] = useState([]);
   const [filtMovies, setFiltMovies] = useState([]);
@@ -38,6 +35,7 @@ const Home = () => {
     <>
 
     <Title name={userName}/>
+    
     <SearchBar  setFiltMovies={setFiltMovies} filtMovies={filtMovies} />
    
     <Main filtMovies = { filtMovies }  />
