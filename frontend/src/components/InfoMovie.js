@@ -1,9 +1,11 @@
 
-function InfoMovie({movie}) {
+function InfoMovie({movie, infoMovieOpen}) {
     
     
     // console.log(movie.title)
     return (
+        <>
+      {  (movie.title === infoMovieOpen[0].title) &&
         <div className="Info">
             <div>
             <p>{movie.plot}</p>
@@ -14,7 +16,7 @@ function InfoMovie({movie}) {
             <p>★ {movie.rating}</p>
             </div>
         </div>
-       
+      } </>
     )
     }
 

@@ -5,25 +5,28 @@ import { useUserContext } from "../context/UserContextProv"
 import InfoMovie from "./InfoMovie";
 
 
-function Movie({item}) {
+function Movie({item, infoMovieOpen, setInfoMovieOpen }) {
     
     const activeUser = useUserContext()
     const navigate = useNavigate();
     const [infoMovie, setInfoMovie] = useState({ category: "", poster: "", title: "", plot: "", year: "", rating: "" })
     const params = useParams()
     
-    function openMovieInfo() {
+    function toggleInfo() {
         setInfoMovie({ category: "", poster: "", title: "", plot: "", year: "", rating: "" });
-        if (infoMovie.title === "") {
+        
+        if (infoMovieOpen.length < 1) {
+       
         setInfoMovie({ category: item.category, poster: item.poster, title: item.title, plot: item.plot, year: item.year, rating: item.rating })
+        setInfoMovieOpen([item, ...infoMovieOpen])
+        console.log(infoMovieOpen)
        } else {
+        setInfoMovieOpen([])
             setInfoMovie({ category: "", poster: "", title: "", plot: "", year: "", rating: "" })
+            console.log(infoMovieOpen)
         }
     }
 
-    function closeMovInfo() {
-        setInfoMovie({ category: "", poster: "", title: "", plot: "", year: "", rating: "" })
-    }
     
     function addToFavs(event) {
         event.preventDefault()
@@ -46,7 +49,7 @@ function Movie({item}) {
     return (
        <li key={item._id}>
            <div className="movieItem">
-                <button onClick={openMovieInfo}  className="movieBtn" >  
+                <button onClick={toggleInfo}  className="movieBtn" >  
                     <span className="movieImg" >
                         <img src={item.poster} alt={item.title}/>
                     </span>
@@ -58,10 +61,10 @@ function Movie({item}) {
                     <FavButton handler={addToFavs} icon={<i class="fa-solid fa-star">Add to WachList</i>} />
                 </span>
                 }
-            { (activeUser.userData.name)&& (infoMovie.title) &&
+            { (infoMovieOpen[0]) && 
                 <div className="movInfo">
-                    <InfoMovie movie={item}/>
-                    <button onClick={closeMovInfo}><i className="fa-solid fa-xmark"></i></button>
+                    <InfoMovie movie={item} infoMovieOpen={infoMovieOpen}/>
+                    
                 </div>
             }
             </div>

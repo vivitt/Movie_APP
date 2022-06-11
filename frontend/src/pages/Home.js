@@ -1,6 +1,6 @@
 
 import SearchBar from "../components/SearchBar";
-import Main from "../components/Main";
+import Main from "../components/AllTheMovies";
 import Title from "../components/Title";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthenticationProv";
