@@ -1,11 +1,12 @@
-import { useUserContext } from "../context/UserContextProv";
+import { useAuth } from "../context/AuthenticationProv";
+
 function Title () {
-    const activeUser = useUserContext();
-    const userName = activeUser.userData.name.charAt(0).toUpperCase() + activeUser.userData.name.slice(1)
+    const {authData} = useAuth();
+    const userName = authData.name
     return (
         <div className="title">
             
-         {(activeUser.userData.name) ?
+         {(authData.name) ?
             
         <h2>Hi {userName}, welcome to MovieApp!</h2> 
        : <h1>MovieApp</h1>}

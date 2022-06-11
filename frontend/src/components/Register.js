@@ -1,43 +1,58 @@
 import React from "react";
-import Page from "../components/Page";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
-const Register = () => {
+
+
+const Register = ({setLogin, setRegister}) => {
   const navigate = useNavigate();
   const [name, setName] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [error, setError] = useState('');
+  const [showLoader, setShowLoader] = useState(false);
   function registerUser(event) {
     event.preventDefault();
-    
+    setError('');
+    setShowLoader(true);
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({name: name, email: email, password: password})
     };
     fetch("/auth/register", requestOptions)
-      .then(response => response.json())
-      .then(data => {
-     
-        let newUser = {name: data.name, email: data.email};
-        console.log(newUser , '---> registered')
+      .then(response => {
+        if (response.status >= 200 && response.status <= 299) {
+        return response.json();
+       
         
+      } else {
+        setError('This email is already taken');
+        
+      }
+    })
+      .then ( data => {
         setName("");
         setEmail("");
         setPassword("");
-        navigate("/login", {replace: true})
-      })
-     
+       
+       
+      }
+    )
+    setLogin(true);
+    setRegister(false);
     } 
+    const showLogin = () => {
+      setLogin(true);
+      setRegister(false)
+    }
   return (
-  <Page> 
+  <> 
   
     <div className="register">
       <form>
         <div>
+          <div><p>{error}</p></div>
           <label for="name">Name</label>
           <input type="text" id="name" name="name" value={name} onChange={(event) => setName(event.target.value)} required />
         </div>
@@ -52,9 +67,9 @@ const Register = () => {
         </div>
         <button type="submit" onClick={registerUser} >Register</button>
       </form>
-      <p>Allready registered? Please <Link to='/login'>Login</Link></p>
+      <p>Allready registered? Please <a onClick={showLogin}>Login</a></p>
     </div>
-  </Page>
+  </>
   )
 };
 

@@ -1,6 +1,8 @@
+import style from './Loader.module.css'
 function Loader() {
     return (
-        <h1>loading....</h1>
+        <div className={style.loader}>
+            <div className={style.popcorn} >🍿</div></div>
     )
 }
 
