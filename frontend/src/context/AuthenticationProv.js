@@ -1,7 +1,6 @@
 
 import React, {useContext, useEffect, useState}  from "react";
 import { useLoader } from "./LoadContext";
-
 const AuthenContext = React.createContext("")
 
 
@@ -11,7 +10,7 @@ const AuthenticationProv = ({ children }) => {
     const { setLoading }  = useLoader();
  
     async function getLogUser() {
-        const response = await fetch("/users/", {
+        const response = await fetch("/auth", {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -23,11 +22,11 @@ const AuthenticationProv = ({ children }) => {
                 const data = await response.json();
                 onLogin(data);
                 setLoading(false) ;
-                console.log('dta', data);
+                console.log('data', data);
                 return data;
             }
               setLoading(false) ;
-            console.log('no user dtaa')
+            console.log('no user data')
             throw new Error(response.statusText);    
         } catch (error) {
             console.log(error)
@@ -44,6 +43,7 @@ const AuthenticationProv = ({ children }) => {
 
     const value = {
         authData, 
+        setAuthData,
         onLogin,
         onLogout
     };

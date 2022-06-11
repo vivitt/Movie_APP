@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useUserContext } from "../context/UserContextProv"
 import { useAuth } from "../context/AuthenticationProv";
 
@@ -9,7 +8,7 @@ import { useAuth } from "../context/AuthenticationProv";
 
 //import { UserContext } from "../context/UserContextProv";
 
-const Login = ( ) => {
+const Login = ({setLogin, setRegister} ) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,27 +30,18 @@ const Login = ( ) => {
       body: JSON.stringify({email: email, password: password})
     };
     fetch("/auth/login", requestOptions)
-      
       .then ( response => response.json()
-      
       .then(data => {
         activeUser.setUserData({name: data.name, email: data.email})
         onLogin({ email: data.email, name: data.name })
-        
         navigate('/', {replace: true})
         setEmail('');
         setPassword('')
-      })
-    )
-      
-  
+        })
+      )
       .catch(err => console.log(err))
-        // {setErrMessage(err.message)}) 
-     // Compare user info
-   
-     
-} 
-
+      setLogin(false);
+  } 
 
 
   const errors = {
@@ -63,9 +53,15 @@ const Login = ( ) => {
 
 
   const renderErrorMessage = (name) =>
-  name === errorMessages.name && (
+  {name === errorMessages.name && (
     <div className="error">{errorMessages.message}</div>
-  );
+  )}
+  const showRegister = () => {
+    setLogin(false);
+    setRegister(true)
+  }
+  
+  
   return (
 
       <div className="login">
@@ -86,7 +82,7 @@ const Login = ( ) => {
             </div>
             <button type="submit" onClick={logInUser}>Login</button>
           </form>
-          <p>Not resgistered yet?...<Link to='/register'>Register</Link></p>
+          <p>Not resgistered yet?...<a onClick={showRegister}>Register</a></p>
         </div>
   
   

@@ -9,15 +9,14 @@ const passport = require('passport')
 
 initialize(passport);
 
+
 function getUser(req, res) {
-    console.log(req.user);
     res.status(200).json({
-    	email: req.user.email,
-        name: req.user.name
-  	});
-  };
-
-
+    email: req.user.email,
+    name: req.user.name,
+    
+  });
+};
 
 async function registerNewUser (req, res, next) { 
     try {

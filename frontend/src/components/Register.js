@@ -1,9 +1,10 @@
 import React from "react";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
-const Register = () => {
+
+
+const Register = ({setLogin, setRegister}) => {
   const navigate = useNavigate();
   const [name, setName] = useState("")
   const [email, setEmail] = useState("");
@@ -23,7 +24,7 @@ const Register = () => {
       .then(response => {
         if (response.status >= 200 && response.status <= 299) {
         return response.json();
-        navigate("/login", {replace: true})
+       
         
       } else {
         setError('This email is already taken');
@@ -38,8 +39,13 @@ const Register = () => {
        
       }
     )
-     
+    setLogin(true);
+    setRegister(false);
     } 
+    const showLogin = () => {
+      setLogin(true);
+      setRegister(false)
+    }
   return (
   <> 
   
@@ -61,7 +67,7 @@ const Register = () => {
         </div>
         <button type="submit" onClick={registerUser} >Register</button>
       </form>
-      <p>Allready registered? Please <Link to='/login'>Login</Link></p>
+      <p>Allready registered? Please <a onClick={showLogin}>Login</a></p>
     </div>
   </>
   )

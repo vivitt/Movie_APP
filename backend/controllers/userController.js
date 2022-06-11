@@ -11,6 +11,7 @@ app.use(express.static("public"))
 app.use(express.json());
 
 
+
 async function getFavorites (req, res) {
     
     try {
@@ -31,16 +32,6 @@ async function getFavorites (req, res) {
         }
     };
 
-// async function addToFavorites (req, res) {
-//     try {
-    
-//     await userModel.updateOne({name: req.params.name},{$push: { favMovies: movieModel._id}});
-//     const favUserMovies = await userModel.findOne({name: req.params.name},{favMovies: 1}).populate('favMovies');
-//     res.send(favUserMovies);
-//     } catch (err) {
-//         console.log(err)
-//         }
-//     };
 
 async function addToFavorites (req, res) {
     try {

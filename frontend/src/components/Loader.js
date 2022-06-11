@@ -1,6 +1,8 @@
+import style from './Loader.module.css'
 function Loader() {
     return (
-        <div className="loader">U+1F37F</div>
+        <div className={style.loader}>
+            <div className={style.popcorn} >🍿</div></div>
     )
 }
 

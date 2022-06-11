@@ -1,13 +1,13 @@
 import React from "react"
 import { Navigate, useLocation } from "react-router-dom"
-import { useUserContext } from "./UserContextProv"
+import { useAuth } from "./AuthenticationProv";
 
 const RequireAuth = ({children}) => {
-    const authUser = useUserContext()
+    const { authData } = useAuth();
 
     const location = useLocation()
     
-    if(authUser.userData.email === "") {
+    if(!authData.email) {
         return <Navigate to="/login" state={{ from : location }} replace />
 }
 return   children
