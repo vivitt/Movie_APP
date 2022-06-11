@@ -4,7 +4,7 @@ const authorization = require("../middleware/authorization")
 
 
 
-router.get('/', authorization.checkNotAuthenticated, moviesController.getAllTheMovies);
+router.get('/', moviesController.getAllTheMovies);
 router.post('/search', authorization.checkNotAuthenticated,  moviesController.redirectToFilter);
 router.get('/:filter', authorization.checkNotAuthenticated, moviesController.getMovieByFilter)
 

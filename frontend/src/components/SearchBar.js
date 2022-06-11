@@ -23,6 +23,7 @@ function SearchBar({ setFiltMovies, filtMovies}) {
             })
         }
     }
+    
     function submitParams (event) {
 
         let search = event.target.value;

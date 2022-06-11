@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import Page from '../components/Page'
+
 // import SearchBar from "../components/SearchBar";
-import Title from "../components/Title";
+
 import { useUserContext } from "../context/UserContextProv"
 import { useState, useEffect } from "react";
 import Movie from "../components/Movie"
@@ -44,7 +44,7 @@ const UserFavs = () => {
         
 
     return (
-    <Page>
+    <>
     <h3>{userName}'s wacht list: </h3> 
     
    
@@ -62,7 +62,7 @@ const UserFavs = () => {
 
 
    
-    </Page>
+    </>
   );
 };
 

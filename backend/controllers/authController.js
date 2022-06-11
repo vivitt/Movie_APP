@@ -9,30 +9,37 @@ const passport = require('passport')
 
 initialize(passport);
 
-function registerNewUser (req, res, next) { 
+function getUser(req, res) {
+    console.log(req.user);
+    res.status(200).json({
+    	email: req.user.email,
+        name: req.user.name
+  	});
+  };
+
+
+
+async function registerNewUser (req, res, next) { 
     try {
         userModel.findOne({ email: req.body.email }, async function (error, user) {
             if (user) {
-                return res.status(400).send({
-                message: `Email ${req.body.email} already taken`,
-                });
+                return res.status(400).send(`Email ${req.body.email} is already taken. Please choose another one`,
+                );
             }else{
                 const hashedPassword = await bcrypt.hash(req.body.password, 10);
-                
                 const user = await userModel.create({
                     name: req.body.name,
                     email: req.body.email,
                     password: hashedPassword       
                 })
                 console.log(user)
-      
-            return res.status(200).json({
-                email: user.email,
-                name: user.name,
+                return res.status(200).json({
+                    email: user.email,
+                    name: user.name,
                 })
-            } 
-        }
-    )
+            }
+    }
+        )
 }
     catch (error) {
             console.log("error creating user", error)
@@ -72,4 +79,4 @@ function logoutUser (req, res) {
     
 }
 
-module.exports = { registerNewUser, loginUser, logoutUser }
+module.exports = { getUser, registerNewUser, loginUser, logoutUser }

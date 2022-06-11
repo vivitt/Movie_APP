@@ -7,7 +7,7 @@ const authorization = require("../middleware/authorization")
 //router.get('/register', authorization.checkNotAuthenticated, authController.renderRegisterPage);   
 //router.get('/login', authorization.checkNotAuthenticated, authController.renderLoginPage);  
 
-
+router.get('/',  authController.getUser);
 router.post('/register',  authController.registerNewUser);
 // router.post('/register', authorization.checkNotAuthenticated, authController.registerNewUser);
 router.post('/login', authController.loginUser);

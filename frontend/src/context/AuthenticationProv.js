@@ -11,9 +11,7 @@ const AuthenticationProv = ({ children }) => {
     const { setLoading }  = useLoader();
  
     async function getLogUser() {
-        console.log('1')
-
-        const response = await fetch("/users", {
+        const response = await fetch("/users/", {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -24,11 +22,11 @@ const AuthenticationProv = ({ children }) => {
             if(response.ok) {
                 const data = await response.json();
                 onLogin(data);
-                setLoading(false);
+                setLoading(false) ;
                 console.log('dta', data);
                 return data;
             }
-            setLoading(false);
+              setLoading(false) ;
             console.log('no user dtaa')
             throw new Error(response.statusText);    
         } catch (error) {
@@ -37,7 +35,9 @@ const AuthenticationProv = ({ children }) => {
         }
     }
 
-    useEffect(() => { getLogUser();}, [setLoading]);
+    useEffect(() => {
+        getLogUser();
+    }, [setLoading]);
 
     const onLogin = (value) => setAuthData(value);
     const onLogout = () => setAuthData({});

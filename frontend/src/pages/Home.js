@@ -1,11 +1,10 @@
 
-import Page from '../components/Page'
 import SearchBar from "../components/SearchBar";
 import Main from "../components/Main";
 import Title from "../components/Title";
 import { useUserContext } from "../context/UserContextProv"
 import { useState, useEffect } from "react";
-
+import Dialog from '@mui/material/Dialog';
 
 const Home = () => {
   //USER
@@ -38,7 +37,7 @@ const Home = () => {
    }, [])
 
     return (
-    <Page>
+    <>
    
     <Title name={userName}/>
     <SearchBar  setFiltMovies={setFiltMovies} filtMovies={filtMovies} />
@@ -46,7 +45,7 @@ const Home = () => {
     <Main filtMovies = { filtMovies }  />
       
    
-    </Page>
+    </>
   );
 };
 

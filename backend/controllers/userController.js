@@ -2,23 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-
 // const passport = require('passeport')
-
 const userModel = require('../models/User')
 const movieModel = require('../models/Movie');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"))
 
 app.use(express.json());
-
-function getUser(req, res) {
-    console.log(req.user);
-    res.status(200).json({
-    	email: req.user.email,
-      name: req.user.name
-  	});
-  };
 
 
 async function getFavorites (req, res) {
@@ -91,5 +81,5 @@ async function removeFromFavorites (req, res) {
 
 
 
-module.exports = { getFavorites, addToFavorites, removeFromFavorites, getUser}
+module.exports = { getFavorites, addToFavorites, removeFromFavorites }
 
