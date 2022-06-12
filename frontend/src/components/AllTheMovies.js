@@ -1,15 +1,16 @@
 import { useState } from "react";
 import Movie from "./Movie";
-
+import style from './Movies.module.css'
 
 
 
 function Main({filtMovies}) {
-   const [ openMovieInfo, setOpenMovieInfo ] = useState(false);
-   const [infoMovieOpen, setInfoMovieOpen] = useState([])
-   return (<div className="movies">
+   
+   const [openMovInf, setOpenMovInf] = useState([])
+   
+   return (<div className={style.movies}>
       <ul>
-          {filtMovies.map(item => ( <Movie item={item} openMovieInfo={openMovieInfo} setOpenMovieInfo={setOpenMovieInfo} infoMovieOpen={infoMovieOpen} setInfoMovieOpen={setInfoMovieOpen} /> )) }
+          {filtMovies.map(item => ( <Movie item={item} openMovInf={openMovInf} setOpenMovInf={setOpenMovInf} /> )) }
        </ul>
         
     </div>)
