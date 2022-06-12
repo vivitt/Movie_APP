@@ -1,16 +1,14 @@
 import { useAuth } from "../context/AuthenticationProv";
 
-function Title () {
+function Title ({name}) {
     const {authData} = useAuth();
-    const userName = authData.name
+   
     return (
         <div className="title">
-            
-         {(authData.name) ?
-            
-        <h2>Hi {userName}, welcome to MovieApp!</h2> 
-       : <h1>MovieApp</h1>}
-        </div>
+            <h1>MovieApp</h1>    
+            {(authData.name) && <h2>Hi {(name.charAt(0).toUpperCase() + name.slice(1))}, welcome to MovieApp!</h2> 
+            }
+</div>
     )
 }
 export default Title;

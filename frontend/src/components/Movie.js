@@ -1,32 +1,36 @@
 import { useState } from "react";
-import FavButton from "./FavButton";
 import { useNavigate, useParams } from "react-router-dom";
-import { useUserContext } from "../context/UserContextProv"
+import { useAuth } from "../context/AuthenticationProv"
 import InfoMovie from "./InfoMovie";
+import style from "./Movies.module.css"
 
 
-function Movie({item}) {
+function Movie({item, openMovInf, setOpenMovInf }) {
     
-    const activeUser = useUserContext()
+    const activeUser = useAuth()
     const navigate = useNavigate();
     const [infoMovie, setInfoMovie] = useState({ category: "", poster: "", title: "", plot: "", year: "", rating: "" })
     const params = useParams()
     
-    function openMovieInfo() {
+    function toggleInfo() {
         setInfoMovie({ category: "", poster: "", title: "", plot: "", year: "", rating: "" });
-        if (infoMovie.title === "") {
+        
+        if (openMovInf.length < 1 || item.title !== openMovInf[0].title ) {
+       
         setInfoMovie({ category: item.category, poster: item.poster, title: item.title, plot: item.plot, year: item.year, rating: item.rating })
+        setOpenMovInf([item, ...openMovInf])
+        
        } else {
+            setOpenMovInf([])
             setInfoMovie({ category: "", poster: "", title: "", plot: "", year: "", rating: "" })
+            
         }
     }
 
-    function closeMovInfo() {
-        setInfoMovie({ category: "", poster: "", title: "", plot: "", year: "", rating: "" })
-    }
     
     function addToFavs(event) {
         event.preventDefault()
+
         console.log(item.title)
         const requestOptions = {
             method: 'POST',
@@ -45,25 +49,23 @@ function Movie({item}) {
  
     return (
        <li key={item._id}>
-           <div className="movieItem">
-                <button onClick={openMovieInfo}  className="movieBtn" >  
-                    <span className="movieImg" >
-                        <img src={item.poster} alt={item.title}/>
-                    </span>
-                </button>
-                <h4 className="movieTitle"> {item.title}</h4>
-                
-                { (activeUser.userData.name) &&
-                <span className="favButons"> 
-                    <FavButton handler={addToFavs} icon={<i class="fa-solid fa-star">Add to WachList</i>} />
-                </span>
-                }
-            { (activeUser.userData.name)&& (infoMovie.title) &&
-                <div className="movInfo">
-                    <InfoMovie movie={item}/>
-                    <button onClick={closeMovInfo}><i className="fa-solid fa-xmark"></i></button>
+           <div className={style.movieItem}>
+                <div>
+                    <button onClick={toggleInfo}  className={style.movieBtn} >  
+                        <div className={style.movieImg} >
+                            <img src={item.poster} alt={item.title}/>
+                        </div>
+                    </button>
+                    {/* <h4 className={style.movieTitle}> {item.title}</h4> */}
+                </div>    
+                <div>
+                    { (openMovInf[0]) && 
+                    <div className={style.movInfo}>
+                        <InfoMovie movie={item} openMovInf={openMovInf} addToFavs={addToFavs} />
+                   
+                    </div>
+                    }
                 </div>
-            }
             </div>
         </li>
     )    
@@ -73,16 +75,4 @@ export default Movie;
 
 
 
-        
-    // (
-    // <div className="Info">
-    //  {/* <div><img src={movie.poster} alt={movie.title}/></div>
-    //  <div>
-    //  <p> {movie.title}</p>
-    //  <p>{movie.year}</p>
-    //  <p>{movie.category}</p>
-    //  <p>{movie.plot}</p>
-    //  <p>{movie.rating}</p> */}
-    //  </div>
-    // )
-
+    
