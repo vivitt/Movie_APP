@@ -1,9 +1,10 @@
 
 import SearchBar from "../components/SearchBar";
-import Main from "../components/AllTheMovies";
+
 import Title from "../components/Title";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthenticationProv";
+import AllTheMovies from "../components/AllTheMovies";
 
 
 const Home = () => {
@@ -12,8 +13,11 @@ const Home = () => {
   const userName = authData.name;
 
   //MOVIES
-  const [movies, setMovies] = useState([]);
-  const [filtMovies, setFiltMovies] = useState([]);
+  const [ movies, setMovies ] = useState([]);
+  const [ filtMovies, setFiltMovies ]  = useState([]);
+  const [ dataMovies, setDataMovies ] = useState([]);
+  const [ back, setBack ] = useState(false)
+
 
   const getMovies = () => {
   fetch ("/movies")
@@ -21,7 +25,8 @@ const Home = () => {
       .then (data => {
         setMovies(data.movies)  //TODO why sometimes is working with data.movies and sometimes with data.allTheMovies???? XO
         setFiltMovies(data.movies)
-        //  console.log(data.movies)
+        setDataMovies(data.movies)
+        console.log(filtMovies)
       })
       
       .catch(err => console.log(err))
@@ -30,15 +35,20 @@ const Home = () => {
     useEffect(() => {
     getMovies();
    }, [])
-
+   
+    const backToAll = (event) => {
+      event.preventDefault();
+      setFiltMovies([...dataMovies])
+      setBack(false)
+    }
     return (
     <>
 
     <Title name={userName}/>
     
-    <SearchBar  setFiltMovies={setFiltMovies} filtMovies={filtMovies} />
+    <SearchBar  back={back} setBack={setBack} setFiltMovies={setFiltMovies} filtMovies={filtMovies} movies={movies} setMovies={setMovies} dataMovies={dataMovies} />
    
-    <Main filtMovies = { filtMovies }  />
+    <AllTheMovies filtMovies = { filtMovies } movies={movies} back={back} backToAll={backToAll} />
       
    
     </>

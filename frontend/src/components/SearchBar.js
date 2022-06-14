@@ -1,66 +1,67 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { useUserContext } from "../context/UserContextProv"
+import SearchIcon from '@mui/icons-material/Search';
+import SortIcon from '@mui/icons-material/Sort';
 
-function SearchBar({ setFiltMovies, filtMovies}) {
+
+function SearchBar({ setFiltMovies, movies, setMovies, dataMovies, setBack}) {
     
     const sorts = ['Sort by...', 'year', 'rating'];
-    const [filterParams, setFilterParams] = useState();
+    const [ search, setSearch ] = useState('');
+    const [ sort, setSort ] = useState('');
     
-    function sortFilms (event) {
-        let sort = event.target.value;
-        if (sort === 'year') {
-            filtMovies.sort((a, b) => {
-                return a.year - b.year;
-            }) 
+    function sortFilms () {
+        setFiltMovies([...movies])
+        console.log(sort)
+        if (sort == 'year') {
+            
+            setFiltMovies(movies.sort((a, b) => { return b.year - a.year;}) )
         } else if (sort === 'rating') {
-            filtMovies.sort((a, b) => {
-                return b.rating - a.rating;
-            })
+            
+            setFiltMovies(movies.sort((a, b) => { return b.rating - a.rating;}))
         } else {
-            filtMovies.sort((a, b) => {
-                return a - b;
-            })
+            
+            setFiltMovies([...movies])
         }
+        setMovies([...dataMovies])
     }
-    
-    function submitParams (event) {
+    useEffect(() => {
+        sortFilms();
+       }, [sort])
 
-        let search = event.target.value;
-        let exists = filtMovies.some((item) => item.year===search || item.title===search)  
-        console.log(exists)
-//   if(!exists) {
-   
-//       const requestOptions = {
-//         method: 'POST',
-//         credentials: 'include',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ task: value })
-//       };
-//       fetch("/tasks", requestOptions)
-//           .then(response => response.json())
-//           .then(data => {
-//             console.log(data);
-//             getTasks();
-//             setValue("");
- 
+    function submitParams (event) {
+        event.preventDefault();
+        if (search !== '')
+        setFiltMovies([...movies]);
+        setFiltMovies(movies.filter(check));
+        setSearch('')
+        setBack(true)
+    }
+
+    function check(item) {
+        if ((item.year).toString() === search || (item.title).toLowerCase().includes(search.toLowerCase()) || item.category.toLowerCase() === search.toLowerCase()) {
+        return item;}
     }
     return (
         <div className="search">
+            <form>
             <div className="searchBar">
+                
                 <label for="search"></label>
-                <input type='text' name="search" placeholder="enter a movie, year or category" className="filterMovie" onChange={(event) => setFilterParams(event.target.value)} value={filterParams} />
+             
+                <input type='text' name="search" placeholder="enter a movie, year or category" className="filterMovie" onChange={(event) => setSearch(event.target.value)} value={search} />
                 <button onClick={submitParams} >
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <SearchIcon></SearchIcon>
                 </button>
+                
             </div>
+            </form>
+            
             <div className="sort">
-                <select placeholder="sort by..." onChange={(e) => sortFilms(e.target.value)} >
-                    {sorts.map(sort => (
-                     <option>{sort}</option>
-                ))}
+                <select placeholder="sort by..." onChange={(event) => setSort(event.target.value)} value={sort} >
+                    {sorts.map(sort => (<option>{sort}</option>))}
                 </select>
-           
+                 {/* <button onClick={sortFilms}><SortIcon></SortIcon></button>        */}
             </div>
             
         </div>)

@@ -4,8 +4,7 @@ const movieModel = require('../models/Movie');
 const getAllTheMovies = async (req, res) => {
     try {
         const allTheMovies = await movieModel.find();
-        // console.log(allTheMovies)
-        // return res.send(allTheMovies)
+  
         return res.status(200).json({
             success: true,
             movies: allTheMovies
