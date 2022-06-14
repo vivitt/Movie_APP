@@ -1,52 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import SortIcon from '@mui/icons-material/Sort';
 
 
-function SearchBar({ setFiltMovies, filtMovies, movies, setMovies, dataMovies}) {
+function SearchBar({ setFiltMovies, movies, setMovies, dataMovies, setBack}) {
     
     const sorts = ['Sort by...', 'year', 'rating'];
-    const [ search, setSearch ] = useState();
-    const [ sort, setSort ] = useState();
+    const [ search, setSearch ] = useState('');
+    const [ sort, setSort ] = useState('');
     
-    function sortFilms (event) {
-        event.preventDefault();
-        setSort(event.target.value);
+    function sortFilms () {
         setFiltMovies([...movies])
         console.log(sort)
         if (sort == 'year') {
-            setFiltMovies(movies.sort((a, b) => {
-                return b.year - a.year;
-            }) )
-            console.log(filtMovies)
+            
+            setFiltMovies(movies.sort((a, b) => { return b.year - a.year;}) )
         } else if (sort === 'rating') {
             
-            setFiltMovies(movies.sort((a, b) => {
-                return b.rating - a.rating;
-            }))
+            setFiltMovies(movies.sort((a, b) => { return b.rating - a.rating;}))
         } else {
             
-            setFiltMovies([...dataMovies])
+            setFiltMovies([...movies])
         }
-        
         setMovies([...dataMovies])
     }
-    
+    useEffect(() => {
+        sortFilms();
+       }, [sort])
+
     function submitParams (event) {
         event.preventDefault();
+        if (search !== '')
         setFiltMovies([...movies]);
-        let exists = movies.some((item) => (item.year).toString() === search || (item.title).toLowerCase().includes(search.toLowerCase()) || item.category.toLowerCase() === search.toLowerCase());
         setFiltMovies(movies.filter(check));
-        console.log(filtMovies)
-        console.log(exists)
         setSearch('')
+        setBack(true)
     }
 
     function check(item) {
-        if ((item.year).toString() === search || (item.title).toLowerCase().includes(search.toLowerCase()) || item.category.toLowerCase() === search.toLowerCase())
-        return item;
-      }
+        if ((item.year).toString() === search || (item.title).toLowerCase().includes(search.toLowerCase()) || item.category.toLowerCase() === search.toLowerCase()) {
+        return item;}
+    }
     return (
         <div className="search">
             <form>
@@ -61,14 +56,14 @@ function SearchBar({ setFiltMovies, filtMovies, movies, setMovies, dataMovies}) 
                 
             </div>
             </form>
-            <form>
+            
             <div className="sort">
-                <select placeholder="sort by..." onChange={sortFilms} value={sort} >
+                <select placeholder="sort by..." onChange={(event) => setSort(event.target.value)} value={sort} >
                     {sorts.map(sort => (<option>{sort}</option>))}
                 </select>
                  {/* <button onClick={sortFilms}><SortIcon></SortIcon></button>        */}
             </div>
-            </form>
+            
         </div>)
 }
 

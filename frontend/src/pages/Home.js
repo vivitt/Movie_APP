@@ -16,6 +16,9 @@ const Home = () => {
   const [ movies, setMovies ] = useState([]);
   const [ filtMovies, setFiltMovies ]  = useState([]);
   const [ dataMovies, setDataMovies ] = useState([]);
+  const [ back, setBack ] = useState(false)
+
+
   const getMovies = () => {
   fetch ("/movies")
       .then (response => response.json())
@@ -33,14 +36,19 @@ const Home = () => {
     getMovies();
    }, [])
    
+    const backToAll = (event) => {
+      event.preventDefault();
+      setFiltMovies([...dataMovies])
+      setBack(false)
+    }
     return (
     <>
 
     <Title name={userName}/>
     
-    <SearchBar  setFiltMovies={setFiltMovies} filtMovies={filtMovies} movies={movies} setMovies={setMovies} dataMovies={dataMovies} />
+    <SearchBar  back={back} setBack={setBack} setFiltMovies={setFiltMovies} filtMovies={filtMovies} movies={movies} setMovies={setMovies} dataMovies={dataMovies} />
    
-    <AllTheMovies filtMovies = { filtMovies } movies={movies} />
+    <AllTheMovies filtMovies = { filtMovies } movies={movies} back={back} backToAll={backToAll} />
       
    
     </>
