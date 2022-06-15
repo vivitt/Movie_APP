@@ -2,10 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContextProv"
 import { useAuth } from "../context/AuthenticationProv";
-
-
-
-
 //import { UserContext } from "../context/UserContextProv";
 
 const Login = ({setLogin, setRegister} ) => {
