@@ -1,64 +1,25 @@
-import React, { useContext } from "react";
-
-// import SearchBar from "../components/SearchBar";
-
-import { useUserContext } from "../context/UserContextProv"
 import { useState, useEffect } from "react";
-import Movie from "../components/Movie"
+import FavMovie from "../components/FavMovie"
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthenticationProv";
+import { useFavContext } from "../context/FavContextProv";
 const UserFavs = () => {
       
-  //USER
-  // const activeUser = useUserContext();
-  //   console.log(activeUser) 
-  // //LOADER 
-  // const [loading, setLoading] = useState(false);
-  //    console.log(loading)
-    
-   //user context
-   let { authData } = useAuth();
-   let { setAuthData } = useAuth();
+  //user context
+  let { authData } = useAuth();
+  const userName = authData.name.charAt(0).toUpperCase() + authData.name.slice(1);
   //FAV MOVIES
-  const [favMovies, setFavMovies] = useState([]);
-  const userName = authData.name.charAt(0).toUpperCase() + authData.name.slice(1)
-
-
-
-
-  function getFavs() {
-      
-      
-      const requestOptions = {
-        method: 'GET',
-        credentials: "include",
-        headers: { 'Content-Type': 'application/json' },
-    };
-      fetch ("/users/favorites", requestOptions)
-        .then (response => response.json())
-        .then (data => {
-          
-        setFavMovies(data.favUserMovies)
-        console.log('fav movies', data.favUserMovies)
-        })
-           
-           .catch(err => console.log(err))
-        }
-
-
-        useEffect(() => {getFavs()}, [])
-
-        
-
-    return (
+  const userFavs = useFavContext();
+  
+  useEffect(() => {userFavs.getFavs()}, [])
+  
+  return (
     <>
     <h3>{userName}'s wacht list: </h3> 
-    
-   
-    
-    {(favMovies.length > 0 ) ?
+    {(userFavs.favMovies[0].title !== '') 
+    ?
     <div>
-      <ul> {favMovies.map(item => (< Movie item = {item} favMovies={favMovies} />  ))}
+      <ul> {userFavs.favMovies.map(item => (< FavMovie item={item}  />  ))}
     
  </ul>
  </div>
@@ -70,7 +31,7 @@ const UserFavs = () => {
 
    
     </>
-  );
+  )
 };
 
 export default UserFavs;

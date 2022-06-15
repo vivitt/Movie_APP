@@ -18,6 +18,7 @@ const Home = () => {
   const [ dataMovies, setDataMovies ] = useState([]);
   const [ back, setBack ] = useState(false)
 
+  
 
   const getMovies = () => {
   fetch ("/movies")
@@ -26,7 +27,7 @@ const Home = () => {
         setMovies(data.movies)  //TODO why sometimes is working with data.movies and sometimes with data.allTheMovies???? XO
         setFiltMovies(data.movies)
         setDataMovies(data.movies)
-        console.log(filtMovies)
+        
       })
       
       .catch(err => console.log(err))

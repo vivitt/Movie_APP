@@ -1,5 +1,3 @@
-
-
 import {
   BrowserRouter as Router,
   NavLink,
@@ -14,7 +12,7 @@ import NotFound from './pages/NotFound';
 import Footer from './components/Footer';
 import UserButton from './components/UserButton';
 
-import {UserContextProv} from "./context/UserContextProv"
+import {FavContextProv} from "./context/FavContextProv"
 import UserFavs from "./pages/UserFavs";
 import RequireAuth from "./context/RequireAuth";
 
@@ -30,7 +28,7 @@ function App() {
   
   return (
     <AuthenticationProv>
-      <UserContextProv >
+      <FavContextProv >
         { loading ? ( <Loader />
         ) : (
         <div className="app">
@@ -60,7 +58,7 @@ function App() {
           <Footer text={'© Viviana Yanez 2022 | Made with ♥︎ '}/>
         </div>
         )}
-      </UserContextProv>
+      </FavContextProv>
     </AuthenticationProv>
   );
 }

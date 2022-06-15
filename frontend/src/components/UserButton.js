@@ -1,13 +1,13 @@
-
+import * as React from 'react';
 import { useNavigate } from "react-router-dom";
-import { useUserContext } from "../context/UserContextProv"
+
 import Login from "./Login";
 import Register from "./Register"
 import { useState } from "react";
 import { useAuth } from "../context/AuthenticationProv";
 
 function UserButton() {
-    
+    const [open, setOpen] = React.useState(false);
    //LOGIN-REGISTER
    const [ login, setLogin ] = useState(false)
    const [ register, setRegister ] = useState(false)
@@ -48,9 +48,9 @@ function UserButton() {
             </button>
  
     } 
-        {(login) && <Login setLogin={setLogin} setRegister={setRegister} />}
+        {(login) && <Login setLogin={setLogin} setRegister={setRegister} open={login} setOpen={setLogin} />}
         
-        {(register) && <Register setLogin={setLogin} setRegister={setRegister} />}
+        {(register) && <Register setLogin={setLogin} setRegister={setRegister} open={register} setOpen={setRegister} />}
     
    </>
    )

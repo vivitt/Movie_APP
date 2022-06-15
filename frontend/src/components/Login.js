@@ -1,23 +1,31 @@
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useUserContext } from "../context/UserContextProv"
+import { useUserContext } from "../context/FavContextProv"
 import { useAuth } from "../context/AuthenticationProv";
-//import { UserContext } from "../context/UserContextProv";
+import { PaperComponent } from './PaperComponent';
 
-const Login = ({setLogin, setRegister} ) => {
 
+const Login = ({setLogin, setRegister, open, setOpen} ) => {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  const activeUser = useUserContext();
-  
+
   const navigate = useNavigate();
-  
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  
   const { onLogin } = useAuth();
-
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
   function logInUser(event) {
     event.preventDefault();
     const requestOptions = {
@@ -28,7 +36,7 @@ const Login = ({setLogin, setRegister} ) => {
     fetch("/auth/login", requestOptions)
       .then ( response => response.json()
       .then(data => {
-        activeUser.setUserData({name: data.name, email: data.email})
+        
         onLogin({ email: data.email, name: data.name })
         navigate('/', {replace: true})
         setEmail('');
@@ -38,16 +46,10 @@ const Login = ({setLogin, setRegister} ) => {
       .catch(err => console.log(err))
       setLogin(false);
   } 
-
-
   const errors = {
     email: "invalid username",
     password: "invalid password"
   };
-
-  
-
-
   const renderErrorMessage = (name) =>
   {name === errorMessages.name && (
     <div className="error">{errorMessages.message}</div>
@@ -56,32 +58,45 @@ const Login = ({setLogin, setRegister} ) => {
     setLogin(false);
     setRegister(true)
   }
-  
-  
   return (
+    <div>
+      <Dialog
+      open={open}
+      onClose={handleClose}
+      PaperComponent={PaperComponent}
+      aria-labelledby="draggable-dialog-title"
+      >
+        <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+        Login
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+          <form >
+              {/* { errMessage && <h4 className="error"> { errMessage } </h4> } */}
+              <div>
+                <label for="email">Email</label>
+                <input onChange={(event) => setEmail(event.target.value)}  type="email" id="email" name="email" value={email} required />
+                {renderErrorMessage("email")}
+              </div>
+              <div>
+                <label for="password">Password</label>
+                <input onChange={(event) => setPassword(event.target.value)}  type="password" id="password" name="password" value={password} required />
+                {renderErrorMessage("password")}
+              </div>
+              <Button type="submit" onClick={logInUser}>Next</Button>
+              </form>
+              <p>Not resgistered yet?...Please register <a onClick={showRegister}>here</a></p>
+            </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+       
+        
+        <Button onClick={handleClose}><CloseIcon></CloseIcon> </Button>
+        </DialogActions>
+        
+      </Dialog>
+    </div>
 
-      <div className="login">
-        <div className='statusMsg'>{(isSubmitted) && <p>You have succesfully loged in</p>}</div>
-        <form >
-        {/* { errMessage &&
-        <h4 className="error"> { errMessage } </h4> } */}
-          <div>
-            <label for="email">Email</label>
-            <input onChange={(event) => setEmail(event.target.value)}  type="email" id="email" name="email" value={email} required />
-            {renderErrorMessage("email")}
-          </div>
-     
-          <div>
-            <label for="password">Password</label>
-              <input onChange={(event) => setPassword(event.target.value)}  type="password" id="password" name="password" value={password} required />
-              {renderErrorMessage("password")}
-            </div>
-            <button type="submit" onClick={logInUser}>Login</button>
-          </form>
-          <p>Not resgistered yet?...<a onClick={showRegister}>Register</a></p>
-        </div>
-  
-  
   )
 }
   
