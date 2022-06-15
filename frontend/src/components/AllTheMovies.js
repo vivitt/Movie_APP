@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Button  from "@mui/material/Button";
 
 function AllTheMovies({filtMovies, back, backToAll}) {
-   const [openMovInf, setOpenMovInf] = useState([{ category: "", poster: "", title: "", plot: "", year: "", rating: "" }])
+   const [openMovInf, setOpenMovInf] = useState([{ id: 0, title: "", year: "", runtime: "", genres: [], director: "", actors: "", plot: "", posterUrl: "" }])
    return (
       <>
       { (back) && <Button onClick={backToAll}> All the movies </Button> }

@@ -1,26 +1,39 @@
 const mongoose = require('mongoose');
 
 const movieSchema = new mongoose.Schema({
-    category: {
-        type: String
-    },
-    poster: {
-        type: String
+    id: {
+        type: Number
     },
     title: {
         type: String,
         unique: true
     },
+    year: {
+        type: String
+    },
+    runtime: {
+        type: String
+    },
+    genres: [{
+            type: String,
+            default : []
+    }],
+    director: {
+        type: String
+    },
+    actors: {
+        type: String
+    },
     plot: {
         type: String
     },
-    year: {
-        type: Number
+    posterUrl: {
+        type: String
     },
-    rating: {
-        type: Number
-    }, 
+
+    
+   
 })
 
 
-module.exports = new mongoose.model("Movie", movieSchema)
+module.exports = new mongoose.model("NewMovie", movieSchema)

@@ -4,7 +4,6 @@ const movieModel = require('../models/Movie');
 const getAllTheMovies = async (req, res) => {
     try {
         const allTheMovies = await movieModel.find();
-  
         return res.status(200).json({
             success: true,
             movies: allTheMovies
@@ -56,8 +55,10 @@ const redirectToFilter = async (req,res) => {
     console.log(filter)
     return res.redirect(`/movies/${filter}`)
 }
+////////////////////////
 
-module.exports = {getAllTheMovies, getMovieByFilter, redirectToFilter}
+
+module.exports = {getAllTheMovies, getMovieByFilter, redirectToFilter }
 
 
 function firstLetterUpperCase(str) {

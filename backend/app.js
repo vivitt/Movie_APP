@@ -21,6 +21,7 @@ const port = process.env.PORT || 3001;
  * ========== CORS SETUP ==========
  */
  const cors = require('cors');
+const { default: createNewMovie } = require('../movies');
  app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Allow-Origin", req.headers.origin);
@@ -114,6 +115,8 @@ app.use('/auth', authRoutes)
 
 
 //////////////////
+
+
 
 
 

@@ -14,15 +14,15 @@ function Movie({item, openMovInf, setOpenMovInf }) {
     const activeUser = useAuth()
     const userFavs = useFavContext();
     const navigate = useNavigate();
-    const [infoMovie, setInfoMovie] = useState({ category: "", poster: "", title: "", plot: "", year: "", rating: "" })
+    const [infoMovie, setInfoMovie] = useState({ id: 0, title: "", year: "", runtime: "", genres: [], director: "", actors: "", plot: "", posterUrl: "" })
     function toggleInfo() {
-        setInfoMovie({ category: "", poster: "", title: "", plot: "", year: "", rating: "" });
+        setInfoMovie({ id: 0, title: "", year: "", runtime: "", genres: [], director: "", actors: "", plot: "", posterUrl: "" });
         if (openMovInf.length < 1 || item.title !== openMovInf[0].title ) {
-            setInfoMovie({ category: item.category, poster: item.poster, title: item.title, plot: item.plot, year: item.year, rating: item.rating })
+            setInfoMovie({ id: item.id, title: item.title, year: item.year, runtime: item.runtime, genres: [...item.genres], director: item.director, actors: item.actors, plot: item.plot, posterUrl: item.posterUrl })
             setOpenMovInf([item])
         } else {
-            setOpenMovInf([{ category: "", poster: "", title: "", plot: "", year: "", rating: "" }])
-            setInfoMovie({ category: "", poster: "", title: "", plot: "", year: "", rating: "" })
+            setOpenMovInf([{ id: 0, title: "", year: "", runtime: "", genres: [], director: "", actors: "", plot: "", posterUrl: "" }])
+            setInfoMovie({ id: 0, title: "", year: "", runtime: "", genres: [], director: "", actors: "", plot: "", posterUrl: "" })
         }
     }
     function addToFavs(event) {
@@ -68,7 +68,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
                 <div className={style.movieItem}>
                     <Button onClick={toggleInfo}  className={style.movieBtn} >  
                         <div className={style.movieImg} >
-                            <img src={item.poster} alt={item.title}/>
+                            <img src={item.posterUrl} alt={item.title}/>
                         </div>
                     </Button>
                     <div>
@@ -90,7 +90,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
                 <div className={style.movieItem}>
                     <Button onClick={toggleInfo}  className={style.movieBtn} >  
                         <div className={style.movieImg} >
-                            <img src={item.poster} alt={item.title}/>
+                            <img src={item.posterUrl} alt={item.title}/>
                         </div>
                     </Button>
                 </div>

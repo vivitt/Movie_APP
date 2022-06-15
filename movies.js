@@ -1,28 +1,32 @@
-{
-    "genres": [
-        "Comedy",
-        "Fantasy",
-        "Crime",
-        "Drama",
-        "Music",
-        "Adventure",
-        "History",
-        "Thriller",
-        "Animation",
-        "Family",
-        "Mystery",
-        "Biography",
-        "Action",
-        "Film-Noir",
-        "Romance",
-        "Sci-Fi",
-        "War",
-        "Western",
-        "Horror",
-        "Musical",
-        "Sport"
-    ],
-    "movies": [
+// {
+//     "genres": [
+//         "Comedy",
+//         "Fantasy",
+//         "Crime",
+//         "Drama",
+//         "Music",
+//         "Adventure",
+//         "History",
+//         "Thriller",
+//         "Animation",
+//         "Family",
+//         "Mystery",
+//         "Biography",
+//         "Action",
+//         "Film-Noir",
+//         "Romance",
+//         "Sci-Fi",
+//         "War",
+//         "Western",
+//         "Horror",
+//         "Musical",
+//         "Sport"
+//     ],
+
+async function createNewMovie (req, res) {
+        try {
+            let newMovies = await NewMovieModel.create(
+    
         {
             "id": 1,
             "title": "Beetlejuice",
@@ -2148,7 +2152,9 @@
             "actors": "Ryan Gosling, Rudy Eisenzopf, Casey Groves, Charlie Talbert",
             "plot": "Four denizens in the world of high-finance predict the credit and housing bubble collapse of the mid-2000s, and decide to take on the big banks for their greed and lack of foresight.",
             "posterUrl": "https://images-na.ssl-images-amazon.com/images/M/MV5BNDc4MThhN2EtZjMzNC00ZDJmLThiZTgtNThlY2UxZWMzNjdkXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_SX300.jpg"
+        });
+    } catch (err) {
+        console.log(err)
         }
-    ]
-}
-
+    }
+    
