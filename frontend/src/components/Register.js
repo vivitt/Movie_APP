@@ -1,16 +1,27 @@
-import React from "react";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { PaperComponent } from './PaperComponent';
 
 
-
-const Register = ({setLogin, setRegister}) => {
-  const navigate = useNavigate();
+const Register = ({setLogin, setRegister, open, setOpen}) => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState('');
   const [showLoader, setShowLoader] = useState(false);
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   function registerUser(event) {
     event.preventDefault();
     setError('');
@@ -24,33 +35,39 @@ const Register = ({setLogin, setRegister}) => {
       .then(response => {
         if (response.status >= 200 && response.status <= 299) {
         return response.json();
-       
-        
       } else {
         setError('This email is already taken');
-        
-      }
+     }
     })
       .then ( data => {
         setName("");
         setEmail("");
         setPassword("");
-       
-       
-      }
+    }
     )
     setLogin(true);
     setRegister(false);
     } 
+
     const showLogin = () => {
       setLogin(true);
       setRegister(false)
     }
+
   return (
-  <> 
-  
-    <div className="register">
-      <form>
+    <div>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      PaperComponent={PaperComponent}
+      aria-labelledby="draggable-dialog-title"
+      >
+        <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+        Register
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+          <form>
         <div>
           <div><p>{error}</p></div>
           <label for="name">Name</label>
@@ -65,11 +82,22 @@ const Register = ({setLogin, setRegister}) => {
           <label for="password">Password</label>
           <input type="password" id="password" name="password" value={password} onChange={(event) => setPassword(event.target.value)} required />
         </div>
-        <button type="submit" onClick={registerUser} >Register</button>
+        <Button type="submit" onClick={registerUser}>Next</Button>
+        
       </form>
-      <p>Allready registered? Please <a onClick={showLogin}>Login</a></p>
+          <p>Allready registered? Please login <a onClick={showLogin}>here</a></p>
+            </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+       
+         
+        <Button onClick={handleClose}><CloseIcon></CloseIcon> </Button>
+        </DialogActions>
+        
+      </Dialog>
+      
+      
     </div>
-  </>
   )
 };
 
