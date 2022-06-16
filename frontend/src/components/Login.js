@@ -3,29 +3,41 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import Link from '@mui/material/Link';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useUserContext } from "../context/FavContextProv"
 import { useAuth } from "../context/AuthenticationProv";
 import { PaperComponent } from './PaperComponent';
-
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const Login = ({setLogin, setRegister, open, setOpen} ) => {
   
+  ////  password visibility icon
+  const [ showPassword, setShowPassword ] = useState();
+  const handleShowPass = (e) => {e.preventDefault();
+    (showPassword) ?setShowPassword(false):setShowPassword(true); }
+  ///user  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const { onLogin } = useAuth();
   
+  //close dialog
   const handleClose = () => {
     setOpen(false);
   };
+
+  //login func
   function logInUser(event) {
     event.preventDefault();
     const requestOptions = {
@@ -46,18 +58,13 @@ const Login = ({setLogin, setRegister, open, setOpen} ) => {
       .catch(err => console.log(err))
       setLogin(false);
   } 
-  const errors = {
-    email: "invalid username",
-    password: "invalid password"
-  };
-  const renderErrorMessage = (name) =>
-  {name === errorMessages.name && (
-    <div className="error">{errorMessages.message}</div>
-  )}
+  
+  //register link 
   const showRegister = () => {
     setLogin(false);
     setRegister(true)
   }
+
   return (
     <div>
       <Dialog
@@ -71,32 +78,48 @@ const Login = ({setLogin, setRegister, open, setOpen} ) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-          <form >
-              {/* { errMessage && <h4 className="error"> { errMessage } </h4> } */}
-              <div>
-                <label for="email">Email</label>
-                <input onChange={(event) => setEmail(event.target.value)}  type="email" id="email" name="email" value={email} required />
-                {renderErrorMessage("email")}
-              </div>
-              <div>
-                <label for="password">Password</label>
-                <input onChange={(event) => setPassword(event.target.value)}  type="password" id="password" name="password" value={password} required />
-                {renderErrorMessage("password")}
-              </div>
-              <Button type="submit" onClick={logInUser}>Next</Button>
-              </form>
-              <p>Not resgistered yet?...Please register <a onClick={showRegister}>here</a></p>
-            </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-       
-        
+          <FormControl sx={{ m: 1 }} variant="outlined">
+            <InputLabel htmlFor="email">Email</InputLabel>
+            <OutlinedInput
+              id="email"
+              required
+              type="text"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              label="email"
+              />
+          </FormControl>
+          <FormControl sx={{ m: 1 }} variant="outlined">
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <OutlinedInput
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleShowPass}
+                    // onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="password"
+            />
+          </FormControl>
+          <Button type="submit" onClick={logInUser}>Login</Button>
+          <p>Not resgistered yet?...Please register <Link onClick={showRegister}>here</Link></p>
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
         <Button onClick={handleClose}><CloseIcon></CloseIcon> </Button>
-        </DialogActions>
-        
-      </Dialog>
-    </div>
-
+      </DialogActions>
+    </Dialog>
+  </div>
   )
 }
   

@@ -44,7 +44,7 @@ const Home = () => {
     }
     return (
     <>
-
+    
     <Title name={userName}/>
     
     <SearchBar  back={back} setBack={setBack} setFiltMovies={setFiltMovies} filtMovies={filtMovies} movies={movies} setMovies={setMovies} dataMovies={dataMovies} />
