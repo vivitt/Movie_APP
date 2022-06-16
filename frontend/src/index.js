@@ -7,6 +7,7 @@ import LoadContextProvider from './context/LoadContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  
   <LoadContextProvider>
     <App />
   </LoadContextProvider>

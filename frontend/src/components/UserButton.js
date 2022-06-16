@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
-
+import Button from '@mui/material/Button';
 import Login from "./Login";
 import Register from "./Register"
 import { useState } from "react";
@@ -40,12 +40,12 @@ function UserButton() {
     return (
         <>
         {(!authData.name)
-            ? <button className="user-button" onClick={logIn}> 
+            ? <Button className="user-button" onClick={logIn}> 
                 <i className="fa-solid fa-user fa-xl"> </i>
-                </button> 
-            : <button className="user-button" onClick={logOut}> 
+                </Button> 
+            : <Button className="user-button" onClick={logOut}> 
                 <i className="fa-solid fa-right-from-bracket fa-xl"></i>
-            </button>
+            </Button>
  
     } 
         {(login) && <Login setLogin={setLogin} setRegister={setRegister} open={login} setOpen={setLogin} />}

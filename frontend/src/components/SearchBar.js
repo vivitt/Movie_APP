@@ -1,8 +1,16 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
-import SortIcon from '@mui/icons-material/Sort';
-
+import { InputBase, TextField } from '@mui/material';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import FilledInput from "@mui/material/FilledInput";
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 function SearchBar({ setFiltMovies, movies, setMovies, dataMovies, setBack}) {
     
@@ -11,15 +19,14 @@ function SearchBar({ setFiltMovies, movies, setMovies, dataMovies, setBack}) {
     const [ sort, setSort ] = useState('');
     
     function sortFilms () {
+        setMovies([...dataMovies])
         setFiltMovies([...movies])
         console.log(sort)
         if (sort == 'year') {
-            
             setFiltMovies(movies.sort((a, b) => { return b.year - a.year;}) )
         } else if (sort === 'rating') {
-            
             setFiltMovies(movies.sort((a, b) => { return b.rating - a.rating;}))
-        } else {
+        } else if (sort === 'Sort by...'){
             
             setFiltMovies([...movies])
         }
@@ -44,25 +51,55 @@ function SearchBar({ setFiltMovies, movies, setMovies, dataMovies, setBack}) {
     }
     return (
         <div className="search">
-            <form>
+            
             <div className="searchBar">
                 
-                <label for="search"></label>
+                
+                <FormControl sx={{ m: 1 }} fullWidth>
+                {/* <InputLabel htmlFor="search">Search movies...</InputLabel>  */}
+                <OutlinedInput
+                    id="search"
+                    type='text'
+                    value={search}
+                    placeholder="Search movies..."
+                    onChange={(event) => setSearch(event.target.value)}
+                    endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                        aria-label="search"
+                        onClick={submitParams}
+                        
+                        edge="end"
+                        >
+                         <SearchIcon></SearchIcon>
+                        </IconButton>
+                    </InputAdornment>
+                    }
+                    
+                />
+        </FormControl>
+
+
              
-                <input type='text' name="search" placeholder="enter a movie, year or category" className="filterMovie" onChange={(event) => setSearch(event.target.value)} value={search} />
-                <button onClick={submitParams} >
-                    <SearchIcon></SearchIcon>
-                </button>
+                
                 
             </div>
-            </form>
+           
             
-            <div className="sort">
-                <select placeholder="sort by..." onChange={(event) => setSort(event.target.value)} value={sort} >
-                    {sorts.map(sort => (<option>{sort}</option>))}
-                </select>
+            <FormControl sx={{ m: 1 , width: '25ch'}}  >
+                {/* <InputLabel id="filter"></InputLabel> */}
+                <Select 
+                variant="outlined"
+                 labelId="filter"
+                 id="filter"
+                 value={sort}
+                 defaultValue='Sort by...'
+                 onChange={(event) => setSort(event.target.value)}
+                >
+                    {sorts.map(sort => (<MenuItem value={sort}>{sort}</MenuItem>))}
+                </Select>
                  {/* <button onClick={sortFilms}><SortIcon></SortIcon></button>        */}
-            </div>
+            </FormControl>
             
         </div>)
 }

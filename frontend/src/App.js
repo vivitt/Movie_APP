@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Home from './pages/Home';
 
+import Container from '@mui/material/Container';
 
 import NotFound from './pages/NotFound';
 
@@ -27,6 +28,7 @@ function App() {
 
   
   return (
+    <Container maxWidth="lg">
     <AuthenticationProv>
       <FavContextProv >
         { loading ? ( <Loader />
@@ -60,6 +62,7 @@ function App() {
         )}
       </FavContextProv>
     </AuthenticationProv>
+    </Container>
   );
 }
 

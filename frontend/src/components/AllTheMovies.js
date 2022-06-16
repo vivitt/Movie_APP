@@ -12,7 +12,12 @@ function AllTheMovies({filtMovies, back, backToAll}) {
       { (back) && <Button onClick={backToAll}> All the movies </Button> }
          <Box sx={{ flexGrow: 1 }}>
             { (filtMovies.length > 0)
-               ?<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
+               ?  <Grid container
+               direction="row"
+               justifyContent="space-evenly"
+               alignItems="center"
+               spacing={3} >
+               {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} > */}
                   {filtMovies.map(item => (  <Movie item={item} openMovInf={openMovInf} setOpenMovInf={setOpenMovInf} /> )) }
                </Grid>
                : <div><h3>Nothing here</h3></div>
