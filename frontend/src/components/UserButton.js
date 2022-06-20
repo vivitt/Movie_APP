@@ -5,6 +5,8 @@ import Login from "./Login";
 import Register from "./Register"
 import { useState } from "react";
 import { useAuth } from "../context/AuthenticationProv";
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function UserButton() {
     const [open, setOpen] = React.useState(false);
@@ -13,7 +15,7 @@ function UserButton() {
    const [ register, setRegister ] = useState(false)
    
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const {authData} = useAuth();
     const {setAuthData} = useAuth();
     
@@ -28,11 +30,11 @@ function UserButton() {
     
         fetch('/auth/logout', requestOptions)
         .then(res => {if (res.status === 200) {console.log('session ended!')
-        navigate('/', {replace:true})
+      
         setAuthData({name:"", email: ""})}})
     }
         
-    // const logIn = () => {navigate('/login')}
+
     const logIn = () => {if (login === true) {setLogin (false)} else { setLogin(true)}}
     
     
@@ -41,10 +43,10 @@ function UserButton() {
         <>
         {(!authData.name)
             ? <Button className="user-button" onClick={logIn}> 
-                <i className="fa-solid fa-user fa-xl"> </i>
+                <PersonIcon></PersonIcon>
                 </Button> 
             : <Button className="user-button" onClick={logOut}> 
-                <i className="fa-solid fa-right-from-bracket fa-xl"></i>
+                <LogoutIcon></LogoutIcon>
             </Button>
  
     } 

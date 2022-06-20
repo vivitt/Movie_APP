@@ -8,6 +8,7 @@ function InfoMovie({movie}) {
     <div className={style.movInfo}>
       <div>
         <h2>{movie.title}</h2>
+        
       </div>
       <div>
         <p>{movie.plot}</p>

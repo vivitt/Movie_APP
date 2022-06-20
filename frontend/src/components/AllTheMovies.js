@@ -4,12 +4,13 @@ import Movie from "./Movie";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button  from "@mui/material/Button";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 function AllTheMovies({filtMovies, back, backToAll}) {
    const [openMovInf, setOpenMovInf] = useState([{ category: "", poster: "", title: "", plot: "", year: "", rating: "" }])
    return (
       <>
-      { (back) && <Button onClick={backToAll}> All the movies </Button> }
+     
          <Box sx={{ flexGrow: 1 }}>
             { (filtMovies.length > 0)
                ?  <Grid container
@@ -22,6 +23,7 @@ function AllTheMovies({filtMovies, back, backToAll}) {
                </Grid>
                : <div><h3>Nothing here</h3></div>
             }
+              { (back) && <Button onClick={backToAll}> <ArrowBackIosIcon></ArrowBackIosIcon>All the movies</Button> }
          </Box>
       </>
    )

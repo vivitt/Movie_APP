@@ -8,7 +8,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthenticationProv";
 import { PaperComponent } from './PaperComponent';
 import IconButton from '@mui/material/IconButton';
@@ -19,7 +18,7 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const Login = ({setLogin, setRegister, open, setOpen} ) => {
+const Login = ({setLogin, setRegister, open, setOpen, } ) => {
   
   ////  password visibility icon
   const [ showPassword, setShowPassword ] = useState();
@@ -29,7 +28,7 @@ const Login = ({setLogin, setRegister, open, setOpen} ) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { onLogin } = useAuth();
   
   //close dialog
@@ -50,13 +49,14 @@ const Login = ({setLogin, setRegister, open, setOpen} ) => {
       .then(data => {
         
         onLogin({ email: data.email, name: data.name })
-        navigate('/', {replace: true})
+        // navigate('/', {replace: true})
         setEmail('');
         setPassword('')
         })
       )
       .catch(err => console.log(err))
       setLogin(false);
+
   } 
   
   //register link 
@@ -89,6 +89,8 @@ const Login = ({setLogin, setRegister, open, setOpen} ) => {
               label="email"
               />
           </FormControl>
+          </DialogContentText>
+          <DialogContentText>
           <FormControl sx={{ m: 1 }} variant="outlined">
             <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
@@ -111,7 +113,9 @@ const Login = ({setLogin, setRegister, open, setOpen} ) => {
               label="password"
             />
           </FormControl>
-          <Button type="submit" onClick={logInUser}>Login</Button>
+          </DialogContentText>
+          <DialogContentText>
+          <Button variant='contained' type="submit" onClick={logInUser}>Login</Button>
           <p>Not resgistered yet?...Please register <Link onClick={showRegister}>here</Link></p>
         </DialogContentText>
       </DialogContent>

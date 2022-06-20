@@ -18,7 +18,7 @@ export const FavContextProv = ({ children }) => {
       .then (response => response.json())
       .then (data => {
       setFavMovies(data.favUserMovies)
-      console.log('hola', favMovies)
+      
     })
       .catch(err => console.log(err))
   }

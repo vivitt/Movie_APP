@@ -81,7 +81,7 @@ const Register = ({setLogin, setRegister, open, setOpen}) => {
       <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">Register</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <div>
+            
             <FormControl sx={{ m: 1 }} variant="outlined">
               <InputLabel htmlFor="name">Name</InputLabel>
             <OutlinedInput
@@ -93,7 +93,8 @@ const Register = ({setLogin, setRegister, open, setOpen}) => {
               label="name"
               />
           </FormControl>
-       
+          </DialogContentText>
+          <DialogContentText>
           <FormControl sx={{ m: 1 }} variant="outlined">
             <InputLabel htmlFor="email">Email</InputLabel>
             <OutlinedInput
@@ -105,7 +106,8 @@ const Register = ({setLogin, setRegister, open, setOpen}) => {
               label="email"
               />
           </FormControl>
-          
+          </DialogContentText>
+          <DialogContentText>
           <FormControl sx={{ m: 1 }} variant="outlined">
             <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
@@ -128,9 +130,11 @@ const Register = ({setLogin, setRegister, open, setOpen}) => {
               label="password"
             />
           </FormControl>
+          </DialogContentText>
+          <DialogContentText>
         <Button type="submit" onClick={registerUser}>Register</Button>
         
-        </div>
+        
           <p>Allready registered? Please login <Link onClick={showLogin}>here</Link></p>
             </DialogContentText>
         </DialogContent>
