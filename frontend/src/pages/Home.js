@@ -10,7 +10,10 @@ import AllTheMovies from "../components/AllTheMovies";
 const Home = () => {
   //USER
   const {authData} = useAuth();
-  const userName = authData.name;
+  const userName = authData.name
+  //const userName = authData.name.charAt(0).toUpperCase() + authData.name.slice(1); 
+  
+ 
 
   //MOVIES
   const [ movies, setMovies ] = useState([]);
@@ -24,10 +27,10 @@ const Home = () => {
   fetch ("/movies")
       .then (response => response.json())
       .then (data => {
-        setMovies(data.movies)  //TODO why sometimes is working with data.movies and sometimes with data.allTheMovies???? XO
+        setMovies(data.movies)  
         setFiltMovies(data.movies)
         setDataMovies(data.movies)
-        
+        setBack(false) //allTheMovies BTN
       })
       
       .catch(err => console.log(err))
@@ -45,11 +48,11 @@ const Home = () => {
     return (
     <>
     
-    <Title name={userName}/>
+    {/* <Title text={`Hi ${userName}, welcome to MovieApp!`}/> */}
     
-    <SearchBar  back={back} setBack={setBack} setFiltMovies={setFiltMovies} filtMovies={filtMovies} movies={movies} setMovies={setMovies} dataMovies={dataMovies} />
+    <SearchBar setFiltMovies={setFiltMovies} filtMovies={filtMovies} movies={movies} setMovies={setMovies} dataMovies={dataMovies} setBack={setBack} />
    
-    <AllTheMovies filtMovies = { filtMovies } movies={movies} back={back} backToAll={backToAll} />
+    <AllTheMovies  back={back} setBack={setBack}  backToAll={backToAll} filtMovies = { filtMovies } movies={movies} />
       
    
     </>

@@ -2,16 +2,29 @@
   width: 100%;
   max-width: 1200px;
 }
-.movieItem {
+.movieItemSmall {
     /* background-color: black;
     color: white; */
     border: 0;
     max-width: 100%;
     display: flex;
-    flex-direction: row nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     max-height: 400px;
+   
+  
+  }
+  .movieItemBig {
+    /* background-color: black;
+    color: white; */
+    border: 0;
+    
+    display: flex;
+    flex-direction: row nowrap;
+    justify-content: center;
+    align-items: center;
+    /* max-height: 400px; */
    
   
   }
@@ -27,11 +40,14 @@
    
   }
 
+  .movieImg {
+   
+    padding: auto;
+    margin: auto;
+  }
+
   .movieImg img {
-    /* width: 200px; */
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
+   max-width: 100%
   }
 
   .favBtn button {
@@ -53,12 +69,35 @@
     color: white; */
   
     text-align: left;
-    width: 400px;
-    max-width: 100%;
+    
+    max-width: 90%;
    
+    
+  }
+
+
+  .movInfo span h2 {
+    display: inline;
     
   }
   .info h2 {
     padding: 0;
     margin: 0;
+  }
+
+
+  @media (max-width: 649px) { 
+    .movieItemBig {
+      /* background-color: black;
+      color: white; */
+      border: 0;
+      
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      /* max-height: 400px; */
+     
+    
+    }
   }

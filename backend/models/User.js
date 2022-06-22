@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     name:{
         type: String,
-        // required: true,
-        message : "Please enter you name"
+        required: [true, 'Please enter your name'],
+        minlength: [2, 'Username must be at least 2 characters.'],
+        maxlength: [20, 'Username must be less than 20 characters.'],
+            
     },
     email:{
         type: String,
@@ -15,7 +17,8 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true,
-        minlength: 5,
+        
+        minLength: [5, 'Password is too short!']
     },
     picture:{
         type: String, //as it will be a path to the picture

@@ -7,7 +7,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import { PaperComponent } from './PaperComponent';
 import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
@@ -19,14 +18,17 @@ import FormControl from '@mui/material/FormControl';
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Message from './Message';
 
-const Register = ({setLogin, setRegister, open, setOpen}) => {
+
+const Register = ({setLogin, setRegister, open, setOpen }) => {
   ///USER
   const [name, setName] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //ERRR
-  const [error, setError] = useState('');
+  const [error, setError] = useState(false);
+  const [errMssg, setErrMssg ] = useState('');
   //LOADER
   const [showLoader, setShowLoader] = useState(false);
   ////  password visibility icon
@@ -50,20 +52,25 @@ const Register = ({setLogin, setRegister, open, setOpen}) => {
     fetch("/auth/register", requestOptions)
       .then(response => {
         if (response.status >= 200 && response.status <= 299) {
-        return response.json();
-      } else {
-        setError('This email is already taken');
-     }
-    })
-      .then ( data => {
-        setName("");
-        setEmail("");
-        setPassword("");
+        return response.json()
+        .then ( data => {
+          setName("");
+          setEmail("");
+          setPassword("");
+          setLogin(true);
+          setRegister(false);
+      })
+      } else  {
+        response.text()
+          .then ( data => {
+           
+            setError(true)
+            setErrMssg(data)
+          })
+        }
+      })
     }
-    )
-    setLogin(true);
-    setRegister(false);
-    } 
+
   ///LOGIN LINK
   const showLogin = () => {
       setLogin(true);
@@ -72,16 +79,20 @@ const Register = ({setLogin, setRegister, open, setOpen}) => {
 
   return (
     <div>
+      
     <Dialog
       open={open}
       onClose={handleClose}
-      PaperComponent={PaperComponent}
+      // PaperComponent={PaperComponent}
       aria-labelledby="draggable-dialog-title"
       >
       <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">Register</DialogTitle>
+      
         <DialogContent>
+       
           <DialogContentText>
-            <div>
+          {(error) ? <span className='errosMssg'><p>{errMssg}</p></span>
+          :<div></div>}
             <FormControl sx={{ m: 1 }} variant="outlined">
               <InputLabel htmlFor="name">Name</InputLabel>
             <OutlinedInput
@@ -89,11 +100,12 @@ const Register = ({setLogin, setRegister, open, setOpen}) => {
               required
               type="text"
               value={name}
-              onChange={(event) => setName(event.target.value)}
+              onChange={(event) => {setName(event.target.value); setError(false)}}
               label="name"
               />
           </FormControl>
-       
+          </DialogContentText>
+          <DialogContentText>
           <FormControl sx={{ m: 1 }} variant="outlined">
             <InputLabel htmlFor="email">Email</InputLabel>
             <OutlinedInput
@@ -101,18 +113,19 @@ const Register = ({setLogin, setRegister, open, setOpen}) => {
               required
               type="text"
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) => {setEmail(event.target.value); setError(false)}}
               label="email"
               />
           </FormControl>
-          
+          </DialogContentText>
+          <DialogContentText>
           <FormControl sx={{ m: 1 }} variant="outlined">
             <InputLabel htmlFor="password">Password</InputLabel>
             <OutlinedInput
               id="password"
               type={showPassword ? 'text' : 'password'}
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(event) => {setPassword(event.target.value);setError(false)}}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -128,21 +141,23 @@ const Register = ({setLogin, setRegister, open, setOpen}) => {
               label="password"
             />
           </FormControl>
-        <Button type="submit" onClick={registerUser}>Register</Button>
+          </DialogContentText>
+          <DialogContentText>
+          <Button variant='contained' type="submit" onClick={registerUser}>Register</Button>
         
-        </div>
-          <p>Allready registered? Please login <Link onClick={showLogin}>here</Link></p>
+        
+          <p>Allready registered? Please login <Link color='secondary'  onClick={showLogin}>here</Link></p>
             </DialogContentText>
         </DialogContent>
         <DialogActions>
        
          
-        <Button onClick={handleClose}><CloseIcon></CloseIcon> </Button>
+        <Button onClick={handleClose} color='secondary' ><CloseIcon></CloseIcon> </Button>
         </DialogActions>
         
       </Dialog>
       
-      
+     
     </div>
   )
 };

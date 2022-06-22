@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthenticationProv"
 import InfoMovie from "./InfoMovie";
 import style from "./Movies.module.css"
@@ -27,7 +27,6 @@ function Movie({item, openMovInf, setOpenMovInf }) {
     }
     function addToFavs(event) {
         event.preventDefault()
-        console.log('add')
         const requestOptions = {
           method: 'POST',
           credentials: "include",
@@ -36,7 +35,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
         fetch(`/users/favorites/${item.title}`, requestOptions)
           .then(res =>res.json())
           .then(data => {
-            console.log('added', data)
+            
             userFavs.getFavs();
           })
           .catch(error => console.log(error))
@@ -52,32 +51,32 @@ function Movie({item, openMovInf, setOpenMovInf }) {
         fetch(`/users/removefavorites/${item.title}`, requestOptions)
           .then(res =>res.json())
           .then(data => {
-            console.log('removed', data)
-            //userFavs.setFavMovies(userFavs.favMovies.filter(item => item !== data))
             userFavs.getFavs();
-                    })
+        })
             .catch(error => console.log(error))
           }
  
     return (
         <>
-        {/* <InfoMovie movie={item} openMovInf={openMovInf} addToFavs={addToFavs} to /> */}
         {(item.title === openMovInf[0].title)
-        ? <Grid item xs="auto">
+        ? <Grid item xs="10" xl="auto" >
             <Item>
-                <div className={style.movieItem}>
+                <div className={style.movieItemBig}>
+                    
                     <Button onClick={toggleInfo}  className={style.movieBtn} >  
                         <div className={style.movieImg} >
                             <img src={item.poster} alt={item.title}/>
                         </div>
                     </Button>
+                   
                     <div>
                     <InfoMovie movie={item} ></InfoMovie>
                     { (activeUser.authData.name) &&
                         <div className={style.favBtn}> 
                             {(userFavs.favMovies.some(x => x.title === item.title))
-                                ? <Button onClick={removeFromFavs}> <Favorite></Favorite> </Button>
-                                : <Button onClick={addToFavs}> <FavoriteBorder></FavoriteBorder>  </Button>
+                                ? <Button onClick={removeFromFavs}> <Favorite sx={{
+                                    color: '#FE0D13'}}></Favorite> </Button>
+                                : <Button color="secondary" onClick={addToFavs}> <FavoriteBorder></FavoriteBorder>  </Button>
                             }
                         </div>
                     }
@@ -87,12 +86,19 @@ function Movie({item, openMovInf, setOpenMovInf }) {
         </Grid>
         : <Grid item xs="auto">
             <Item>
-                <div className={style.movieItem}>
+                <div className={style.movieItemSmall}>
                     <Button onClick={toggleInfo}  className={style.movieBtn} >  
                         <div className={style.movieImg} >
                             <img src={item.poster} alt={item.title}/>
                         </div>
                     </Button>
+                    {(activeUser.authData.name) && <div> 
+                    {(userFavs.favMovies.some(x => x.title === item.title))
+                                ? <Button onClick={removeFromFavs}> <Favorite sx={{
+                                    color: '#FE0D13'}} ></Favorite> </Button>
+                                : <Button color="secondary" onClick={addToFavs}> <FavoriteBorder></FavoriteBorder>  </Button>
+                            } </div>}
+                   
                 </div>
             </Item>
         </Grid>
