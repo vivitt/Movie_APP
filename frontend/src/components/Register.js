@@ -28,7 +28,7 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
   const [password, setPassword] = useState("");
   //ERRR
   const [error, setError] = useState(false);
-  const [errMssg, setErrMssg ] = useState('');
+  const [errMssg, setErrMssg] = useState(null);
   //LOADER
   const [showLoader, setShowLoader] = useState(false);
   ////  password visibility icon
@@ -51,8 +51,8 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
     };
     fetch("/auth/register", requestOptions)
       .then(response => {
-        if (response.status >= 200 && response.status <= 299) {
-        return response.json()
+        
+        response.json()
         .then ( data => {
           setName("");
           setEmail("");
@@ -60,17 +60,18 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
           setLogin(true);
           setRegister(false);
       })
-      } else  {
-        response.text()
-          .then ( data => {
-           
-            setError(true)
-            setErrMssg(data)
-          })
-        }
+       
+      
+      .catch(err => {
+      
+      setError(true)
+      
+      console.log(errMssg)
+      response.text()
+      setErrMssg(err.response.data)
       })
-    }
-
+    })
+  }
   ///LOGIN LINK
   const showLogin = () => {
       setLogin(true);

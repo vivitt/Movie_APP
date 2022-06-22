@@ -1,22 +1,24 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcrypt');
+const validator = require('validator');
+const errorController = require('../controllers/errorController');
 const userSchema = new mongoose.Schema({
     name:{
         type: String,
         required: [true, 'Please enter your name'],
-        minlength: [2, 'Username must be at least 2 characters.'],
-        maxlength: [20, 'Username must be less than 20 characters.'],
+        minlength: [2, 'Username must be at least 2 characters'],
+        maxlength: [20, 'Username must be less than 20 characters'],
             
     },
     email:{
         type: String,
         unique: true,
-        required: true,
-        match: [/^\S+@\S+\.\S+$/, "Email is not a valid email format"]
+        required: [true, 'Please enter an email'],
+        validate: [validator.isEmail, "Please enter a valid email format"]
     },
     password:{
         type: String,
-        required: true,
+        required: [true, 'Please enter a password'],
         
         minLength: [5, 'Password is too short!']
     },
@@ -35,5 +37,21 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
+//schema middleware to apply before saving
+userSchema.pre('save', async function(next) {
+    this.password = await bcrypt.hash(this.password, 12);
+    this.passwordConfirm = undefined;
+      next();
+});
+
+userSchema.post('save', function(error, doc, next) {
+    
+    if (error.name === 'ValidationError' ) {
+    console.log('There was a validation error', error);
+    
+    } else {
+      next();
+    }
+  });
 
 module.exports = new mongoose.model("User", userSchema)

@@ -5,7 +5,7 @@ const userModel = require('../models/User')
 const bcrypt = require('bcrypt')
 const initialize = require('../config/passport-config')
 const passport = require('passport')
-
+const errorController = require('./errorController');
 
 initialize(passport);
 
@@ -30,23 +30,21 @@ async function registerNewUser (req, res, next) {
                     email: req.body.email,
                     password: hashedPassword       
                 })
+              
+            
                 return res.status(200).json({
                     email: user.email,
                     name: user.name,
                 })
+              
             }
             })
-          
+         
             } catch (err) {
-                if (err.name == 'ValidationError') {
-                    console.error('Error Validating!', err);
-                    res.status(422).send(err);;
-                } else {
-                    console.error(err);
-                    res.status(500).json(err);
-                    }
+               errorController()
                 }
-        
+              
+           
     }
 
 function loginUser (req, res, next) {

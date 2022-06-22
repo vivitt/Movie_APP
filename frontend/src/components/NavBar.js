@@ -82,14 +82,20 @@ const NavBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              
-               { (authData.name) && 
+                   { (authData.name) && 
                 <MenuItem key='Myfavs' onClick={handleCloseNavMenu} >
                    <Link underline="none"  color="inherit" href='/users'>
                   <Typography textAlign="center">My favs ♥️</Typography>
                   </Link> 
                 </MenuItem>
                 }
+                <MenuItem key='Login' onClick={handleCloseNavMenu} >
+                   <Link underline="none"  color="inherit" >
+                   <Typography textAlign="center"> <UserButton /></Typography>
+                  </Link> 
+                </MenuItem>
+              
+            
                 {/* <MenuItem key='about' onClick={handleCloseNavMenu} >
                 <Link  underline="none" color="inherit" href='https://github.com/vivitt/Movie_APP' target='blank'  >
                    <Typography textAlign="center" >About MovieApp</Typography>
@@ -117,10 +123,11 @@ const NavBar = () => {
           >
             🎬 MovieApp 🎬
           </Typography>
+         
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end'}}>
             
 
-            { (authData.name) && 
+          { (authData.name) && 
                 <Button
                 key='myFavs'
                 onClick={handleCloseNavMenu}
@@ -129,7 +136,8 @@ const NavBar = () => {
               > 
                   My favs ♥️
                 </Button>
-                }
+                 }
+                  <UserButton></UserButton>
                 {/* <Button key='about'
                 color='secondary'
                 onClick={handleCloseNavMenu}
@@ -139,11 +147,13 @@ const NavBar = () => {
                   About MovieApp
                 </Button> */}
           </Box>
+         
 
-          <Box sx={{ flexGrow: 0, width:{xs: '10%', md: '15%'}}}>
-          <ToggleBTN></ToggleBTN>
+          <Box sx={{ flexGrow: 0, width:{xs: '10%', md: '5%'}}}>
+          
   
-           <UserButton ></UserButton>
+           
+           <ToggleBTN></ToggleBTN>
           </Box>
         </Toolbar>
       </Container>

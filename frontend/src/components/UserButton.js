@@ -41,10 +41,10 @@ function UserButton() {
         <>
         {(!authData.name)
             ? <Button  className="user-button" color='secondary' onClick={logIn}> 
-                <PersonIcon></PersonIcon>
+               Login <PersonIcon></PersonIcon>
                 </Button> 
             : <Button  color='secondary'  className="user-button" onClick={logOut}> 
-                <LogoutIcon></LogoutIcon>
+               Logout <LogoutIcon></LogoutIcon>
             </Button>
  
     } 
