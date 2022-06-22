@@ -116,11 +116,11 @@ const Login = ({setLogin, setRegister, open, setOpen, } ) => {
           </DialogContentText>
           <DialogContentText>
           <Button variant='contained' type="submit" onClick={logInUser}>Login</Button>
-          <p>Not resgistered yet?...Please register <Link onClick={showRegister}>here</Link></p>
+          <p>Not resgistered yet?...Please register <Link color='secondary' onClick={showRegister}>here</Link></p>
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}><CloseIcon></CloseIcon> </Button>
+        <Button onClick={handleClose} color='secondary' ><CloseIcon></CloseIcon> </Button>
       </DialogActions>
     </Dialog>
   </div>

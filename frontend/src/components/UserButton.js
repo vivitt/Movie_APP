@@ -25,11 +25,9 @@ function UserButton() {
             method: 'GET',
             credentials: "include",
             headers: { 'Content-Type': 'application/json'},
-        
         };
-    
         fetch('/auth/logout', requestOptions)
-        .then(res => {if (res.status === 200) {console.log('session ended!')
+        .then(res => {if (res.status === 200) {
       
         setAuthData({name:"", email: ""})}})
     }
@@ -42,17 +40,17 @@ function UserButton() {
     return (
         <>
         {(!authData.name)
-            ? <Button className="user-button" onClick={logIn}> 
+            ? <Button  className="user-button" color='secondary' onClick={logIn}> 
                 <PersonIcon></PersonIcon>
                 </Button> 
-            : <Button className="user-button" onClick={logOut}> 
+            : <Button  color='secondary'  className="user-button" onClick={logOut}> 
                 <LogoutIcon></LogoutIcon>
             </Button>
  
     } 
         {(login) && <Login setLogin={setLogin} setRegister={setRegister} open={login} setOpen={setLogin} />}
         
-        {(register) && <Register setLogin={setLogin} setRegister={setRegister} open={register} setOpen={setRegister} />}
+        {(register) && <Register setLogin={setLogin} setRegister={setRegister} open={register} setOpen={setRegister}  />}
     
    </>
    )

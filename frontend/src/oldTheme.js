@@ -5,21 +5,21 @@ import { createTheme } from '@mui/material/styles';
 export const theme = createTheme({
   palette: {
     
-    primary: {
-      main: '#ffffff', //white
-      contrastText: '#FE0D13', //red
-      accent: '#FDDD39', //yellow
-      action: '#302B62',
+    // primary: {
+    //   main: '#ffffff', //white
+    //   contrastText: '#FE0D13', //red
+    //   accent: '#FDDD39', //yellow
+    //   action: '#302B62',
      
-    },
+    // },
    
-    secondary: {
-      main: '#272727',
-      over: '#80CBC4',
-      contrastText: '#FE0D13',
-      backgroundColor: '#A98DB8',
-      hover: '#7E57C2'
-      }
+    // secondary: {
+    //   main: '#ffffff',
+    //   over: '#ffffff',
+    //   contrastText: '#FE0D13',
+    //   backgroundColor: '#A98DB8',
+    //   hover: '#7E57C2'
+    //   }
     },
   components: {
     MuiButton: {

@@ -9,9 +9,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #0f0c29;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background: #0f0c29;  /* fallback for old browsers 
+  background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 
+  background: linear-gradient(to right, #24243e, #302b63, #0f0c29); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .nav-bar ul {
@@ -20,7 +20,7 @@ body {
   flex-direction: row;
 }
 .nav-bar ul li a {
-  color: aliceblue;
+  
   margin: 0.5rem;
   font-size: 1rem;
   text-decoration: none;
@@ -28,12 +28,12 @@ body {
 }
 
 .title h1, .title h2 {
-  color: aliceblue;
+  
   text-align: center;
 }
 
 .search {
-  color: white;
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,6 +70,7 @@ body {
 
 
 
+
 .login, .register {
   background-color: aliceblue;
   display: inline-block;
@@ -78,6 +79,20 @@ body {
 
 }
 
-.footer {
+
+.noFavMssg {
+  padding-top: 5rem;
+  padding-bottom: 8rem;
   text-align: center;
 }
+.backBtn {
+  padding: 2rem;
+}
+
+@media (max-width: 549px) { 
+  .selectInputs {
+    display: flex;
+    flex-direction: column;
+  }
+}
+

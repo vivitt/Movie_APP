@@ -23,7 +23,7 @@ function AllTheMovies({filtMovies, back, backToAll}) {
                </Grid>
                : <div><h3>Nothing here</h3></div>
             }
-              { (back) && <Button onClick={backToAll}> <ArrowBackIosIcon></ArrowBackIosIcon>All the movies</Button> }
+              { (back) && <div className='backBtn'><Button variant='contained' onClick={backToAll}> <ArrowBackIosIcon></ArrowBackIosIcon>All the movies</Button></div> }
          </Box>
       </>
    )

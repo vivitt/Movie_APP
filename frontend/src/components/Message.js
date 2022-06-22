@@ -6,35 +6,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useFavContext } from '../context/FavContextProv';
 
 
-export default function Message( { title, mssg, openMessage, setOpenMessage }) {
+export default function Message( { addToFavs, title, mssg, openMessage, setOpenMessage }) {
     
   const userFavs = useFavContext();
-  
   const [state, setState] = React.useState({
     open: true,
     vertical: 'top',
     horizontal: 'center',
   });
-
   const { vertical, horizontal, open } = state; 
-  
-  function addToFavs(event) {
-    event.preventDefault()
-    const requestOptions = {
-     method: 'POST',
-     credentials: "include",
-     headers: { 'Content-Type': 'application/json' },
-   };
-    fetch(`/users/favorites/${title}`, requestOptions)
-      .then(res =>res.json())
-      .then(data => {
-        userFavs.getFavs();
-     })
-      .catch(error => console.log(error))
-      handleClose();
-  }
-           
-const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+  const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }

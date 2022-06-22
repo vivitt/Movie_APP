@@ -20,7 +20,7 @@ async function getFavorites (req, res) {
         const user = await userModel.findOne({_id: userID}).populate('favMovies');
         const favUserMovies = user.favMovies;
         
-        console.log(favUserMovies);
+      
        
       
         if (favUserMovies.length >0 ) {
@@ -37,7 +37,7 @@ async function addToFavorites (req, res) {
     try {
     let userId = req.user.id;
     let movie = await movieModel.findOne({title: req.params.movie})
-    console.log(userId)  
+    
     let favmovie = await userModel.findOne({favMovies : movie._id})
     if(!favmovie) {
         await userModel.updateOne({_id: userId}, { $push: { favMovies: movie._id }})

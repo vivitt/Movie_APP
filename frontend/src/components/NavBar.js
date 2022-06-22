@@ -90,11 +90,11 @@ const NavBar = () => {
                   </Link> 
                 </MenuItem>
                 }
-                <MenuItem key='about' onClick={handleCloseNavMenu} >
-                <Link  underline="none" color="inherit" href='/about'>
-                   <Typography textAlign="center">About MovieApp</Typography>
+                {/* <MenuItem key='about' onClick={handleCloseNavMenu} >
+                <Link  underline="none" color="inherit" href='https://github.com/vivitt/Movie_APP' target='blank'  >
+                   <Typography textAlign="center" >About MovieApp</Typography>
                 </Link>
-                </MenuItem>
+                </MenuItem> */}
               
             </Menu>
           </Box>
@@ -107,7 +107,7 @@ const NavBar = () => {
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
+              flexGrow: 2,
               
               fontWeight: 700,
               letterSpacing: '.3rem',
@@ -124,25 +124,26 @@ const NavBar = () => {
                 <Button
                 key='myFavs'
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'secondary.main', display: 'block' }}
                 href="/users"
               > 
                   My favs ♥️
                 </Button>
                 }
-                <Button key='about'
+                {/* <Button key='about'
+                color='secondary'
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, display: 'block' }}
                 href="/about"
                 >
                   About MovieApp
-                </Button>
+                </Button> */}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, width:{xs: '10%', md: '15%'}}}>
           <ToggleBTN></ToggleBTN>
   
-           <UserButton></UserButton>
+           <UserButton ></UserButton>
           </Box>
         </Toolbar>
       </Container>

@@ -7,28 +7,56 @@ import Title from "../components/Title";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Message from "../components/Message";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useNavigate } from "react-router-dom";
+import  Button  from "@mui/material/Button";
 
-const UserFavs = ({openMessage, setOpenMessage, mssg, setMssg}) => {
+
+const UserFavs = ({openMessage, setOpenMessage, mssg, setMssg }) => {
       
   //user context
   let { authData } = useAuth();
   const userName = authData.name.charAt(0).toUpperCase() + authData.name.slice(1);
   //FAV MOVIES
   const userFavs = useFavContext();
-  
+  const [ title, setTitle ] = useState('')
+  const navigate = useNavigate()
+  const backToAll = (event) => {
+    event.preventDefault();
+    navigate('/')
+  }
+  function addToFavs(event, handleClose) {
+    
+    event.preventDefault()
+    const requestOptions = {
+     method: 'POST',
+     credentials: "include",
+     headers: { 'Content-Type': 'application/json' },
+   };
+    fetch(`/users/favorites/${title}`, requestOptions)
+      .then(res =>res.json())
+      .then(data => {
+        userFavs.getFavs();
+     })
+      .catch(error => console.log(error))
+      handleClose();
+  }
+
+
   useEffect(() => {userFavs.getFavs()}, [])
 
-  const [ title, setTitle ] = useState('')
+
+
   return (
    <>
       <Message openMessage={openMessage} setOpenMessage={setOpenMessage} mssg={mssg}
- setMssg={setMssg} title={title}></Message> 
+ setMssg={setMssg} addToFavs={addToFavs}></Message> 
  <Title text={`${userName} favs movies ❤️`}/>
       
       <Box sx={{ flexGrow: 1 }}>
       
         {(userFavs.favMovies[0].title !== '') 
-               ?  <><p>Click the heart icon to remove an item</p>
+               ?  <>
                <Grid container
                direction="row"
                justifyContent="space-evenly"
@@ -41,8 +69,12 @@ const UserFavs = ({openMessage, setOpenMessage, mssg, setMssg}) => {
  </Grid></>
  
     : 
-    <><h4>You don't have favorite movies yet... <br/>
-     but you can back to the <NavLink to="/">homepage</NavLink> and add some...</h4>
+    <>
+    <div className="noFavMssg">
+    <p>You don't have favorite movies yet... </p>
+    </div>
+     {/* but you can back to the <NavLink to="/">homepage</NavLink> and add some...</p> */}
+     <Button variant="contained" onClick={backToAll}> <ArrowBackIosIcon></ArrowBackIosIcon>All the movies</Button>
      </>
     }
 

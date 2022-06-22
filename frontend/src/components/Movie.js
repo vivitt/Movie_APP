@@ -59,7 +59,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
     return (
         <>
         {(item.title === openMovInf[0].title)
-        ? <Grid item xs="auto">
+        ? <Grid item xs="10" xl="auto" >
             <Item>
                 <div className={style.movieItemBig}>
                     
@@ -76,7 +76,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
                             {(userFavs.favMovies.some(x => x.title === item.title))
                                 ? <Button onClick={removeFromFavs}> <Favorite sx={{
                                     color: '#FE0D13'}}></Favorite> </Button>
-                                : <Button onClick={addToFavs}> <FavoriteBorder></FavoriteBorder>  </Button>
+                                : <Button color="secondary" onClick={addToFavs}> <FavoriteBorder></FavoriteBorder>  </Button>
                             }
                         </div>
                     }
@@ -96,7 +96,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
                     {(userFavs.favMovies.some(x => x.title === item.title))
                                 ? <Button onClick={removeFromFavs}> <Favorite sx={{
                                     color: '#FE0D13'}} ></Favorite> </Button>
-                                : <Button onClick={addToFavs}> <FavoriteBorder></FavoriteBorder>  </Button>
+                                : <Button color="secondary" onClick={addToFavs}> <FavoriteBorder></FavoriteBorder>  </Button>
                             } </div>}
                    
                 </div>

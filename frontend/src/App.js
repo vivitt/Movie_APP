@@ -19,24 +19,26 @@ import { useLoader } from './context/LoadContext'
 import About from "./pages/About";
 import { useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
-import { useTheme } from './context/ColorModeContext';
+import { useTheme } from './context/ThemeContext';
 
+import  Paper  from '@mui/material/Paper'
 function App() {
   //Loader
   const [ openMessage, setOpenMessage] = useState(false);
   const [ mssg, setMssg ] = useState('')
   const { loading } = useLoader();
-  const theme = useTheme();
+  const modeTheme = useTheme();
   
 
   return (
 
    
-   <ThemeProvider theme={theme}>
+   <ThemeProvider theme={modeTheme}>
+<Paper>
     <div className="app">
       <Router>
         <AuthenticationProv>
-          <NavBar></NavBar>
+          <NavBar mssg={mssg} setMssg={setMssg} openMessage={openMessage} setOpenMessage={setOpenMessage} ></NavBar>
             
           <Container maxWidth="lg">
             <FavContextProv >
@@ -49,7 +51,7 @@ function App() {
  setMssg={setMssg} />} /> 
                 <Route path="/users" element={ <RequireAuth> <UserFavs openMessage={openMessage} setOpenMessage={setOpenMessage} mssg={mssg}
  setMssg={setMssg} /> </RequireAuth> } />
-                <Route path="/about" element={<About />} />
+                
                 <Route path="*" element={<NotFound />} />
                 
               </Routes>
@@ -59,11 +61,14 @@ function App() {
             </FavContextProv>
            
           </Container>
-          <Footer text={'© Viviana Yanez 2022 | Made with ♥︎ '}/>
+          <Footer />
         </AuthenticationProv>
       </Router>
     </div>
+    </Paper>
     </ThemeProvider>
+  
+    
    
  
   );

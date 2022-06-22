@@ -48,7 +48,7 @@ const Home = () => {
     return (
     <>
     
-    <Title text={`Hi ${userName}, welcome to MovieApp!`}/>
+    {/* <Title text={`Hi ${userName}, welcome to MovieApp!`}/> */}
     
     <SearchBar setFiltMovies={setFiltMovies} filtMovies={filtMovies} movies={movies} setMovies={setMovies} dataMovies={dataMovies} setBack={setBack} />
    

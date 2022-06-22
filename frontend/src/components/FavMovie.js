@@ -44,7 +44,7 @@ function FavMovie({item, setMssg, setTitle, setOpenMessage }) {
             <div className={style.movInfo}>
               <span> 
                 <h2>{item.title}</h2>
-                <Button onClick={removeFromFavs}> <Favorite sx={{color: '#FE0D13'}} ></Favorite> </Button>
+                <Button onClick={removeFromFavs} title='Remove this movie from favs' > <Favorite sx={{color: '#FE0D13'}} ></Favorite> </Button>
               </span>
               <div>
                 <p>{item.plot}</p>
