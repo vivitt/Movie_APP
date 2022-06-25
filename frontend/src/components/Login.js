@@ -47,21 +47,18 @@ const Login = ({ setLogin, setRegister, open, setOpen, setOpenMessage, setMssg }
     fetch("/auth/login", requestOptions)
       .then ( response => response.json()
       .then(data => {
-        
         onLogin({ email: data.email, name: data.name })
         // navigate('/', {replace: true})
         setEmail('');
         setPassword('');
-        const name = data.name;
-        setMssg(`Hi ${name}, welcome to MovieApp :)`)
-        setOpenMessage(true);
-        setLogin(false);
         })
-     
+        
       )
       .catch(err => console.log(err))
       
-
+        if(authData.name) {setLogin(false);
+          setMssg(`Hi ${authData.name}, welcome to MovieApp :)`);
+          setOpenMessage(true); }
     
 
   } 

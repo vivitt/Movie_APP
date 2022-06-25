@@ -18,19 +18,15 @@ import ToggleBTN from './ToggleBTN';
 
 
 
-const NavBar = ({ setOpenMessage,  setMssg, mssg, openMessage} ) => {
+const NavBar = ({ setOpenMessage,  setMssg, mssg, openMessage}) => {
   const { authData } = useAuth();
   const [anchorElNav, setAnchorElNav] = React.useState()
-
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-  
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -83,25 +79,25 @@ const NavBar = ({ setOpenMessage,  setMssg, mssg, openMessage} ) => {
               }}
             >
                    { (authData.name) && 
+                   <>
                 <MenuItem key='Myfavs' onClick={handleCloseNavMenu} >
                    <Link underline="none"  color="inherit" href='/users'>
                   <Typography textAlign="center">My favs ♥️</Typography>
                   </Link> 
                 </MenuItem>
+                <MenuItem key='Myfavs' onClick={handleCloseNavMenu} >
+                   <Link underline="none"  color="inherit" href='/users'>
+                  <Typography textAlign="center">User account</Typography>
+                  </Link> 
+                </MenuItem>
+                </>
                 }
                 <MenuItem key='Login' onClick={handleCloseNavMenu} >
                    <Link underline="none"  color="inherit" >
                    <Typography textAlign="center"> <UserButton /></Typography>
                   </Link> 
                 </MenuItem>
-              
-            
-                {/* <MenuItem key='about' onClick={handleCloseNavMenu} >
-                <Link  underline="none" color="inherit" href='https://github.com/vivitt/Movie_APP' target='blank'  >
-                   <Typography textAlign="center" >About MovieApp</Typography>
-                </Link>
-                </MenuItem> */}
-              
+        
             </Menu>
           </Box>
           
@@ -127,7 +123,7 @@ const NavBar = ({ setOpenMessage,  setMssg, mssg, openMessage} ) => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end'}}>
             
 
-          { (authData.name) && 
+          { (authData.name) && <>
                 <Button
                 key='myFavs'
                 onClick={handleCloseNavMenu}
@@ -136,17 +132,19 @@ const NavBar = ({ setOpenMessage,  setMssg, mssg, openMessage} ) => {
               > 
                   My favs ♥️
                 </Button>
+                <Button
+                key='myFavs'
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'secondary.main', display: 'block' }}
+                href="/users"
+              > 
+                  User account
+                </Button>
+                </>
                  }
                  
                   <UserButton setOpenMessage={setOpenMessage} setMssg={setMssg} mssg={mssg} openMessage={openMessage} ></UserButton>
-                {/* <Button key='about'
-                color='secondary'
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, display: 'block' }}
-                href="/about"
-                >
-                  About MovieApp
-                </Button> */}
+             
           </Box>
          
 

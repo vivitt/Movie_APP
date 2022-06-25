@@ -37,13 +37,6 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
-//schema middleware to apply before saving
-userSchema.pre('save', async function(next) {
-    this.password = await bcrypt.hash(this.password, 12);
-    this.passwordConfirm = undefined;
-      next();
-});
-
 
 
 module.exports = new mongoose.model("User", userSchema)

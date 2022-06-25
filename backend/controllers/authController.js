@@ -5,7 +5,7 @@ const userModel = require('../models/User')
 const bcrypt = require('bcrypt')
 const initialize = require('../config/passport-config')
 const passport = require('passport')
-const errorController = require('./errorController');
+
 
 initialize(passport);
 
@@ -23,27 +23,20 @@ async function registerNewUser (req, res, next) {
             email: req.body.email,
             password: hashedPassword       
         })
-        res.send.status(200).json({
+        res.status(200).json({
             email: user.email,
             name: user.name,
-           
-
         })
     } catch (err) {
         res.send(err)
     }
-              
 }
+
 function loginUser (req, res, next) {
     passport.authenticate("local", function (err, user) {
-        if (err) {
-            return next(err);}
-
-            if (! user) {
-                return res.send({ success : false, message : 'Incorrect username or password.' });
-              }  
-      
-         else {
+        if (err || !user) {
+                res.status(401).send({ success : false, message : 'Incorrect username or password.' });
+            } else {
             req.login(user, function (err) {
                 if (err) {
                     return next(err);
@@ -56,6 +49,7 @@ function loginUser (req, res, next) {
         }
     }) (req, res, next);
 };
+
 function logoutUser (req, res) {
     req.logOut()        
     res.clearCookie("connect.sid", { path: "/" });
