@@ -14,7 +14,7 @@ export const FavContextProv = ({ children }) => {
       credentials: "include",
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch ("/users/favorites", requestOptions)
+    fetch ("/api/users/favorites", requestOptions)
       .then (response => response.json())
       .then (data => {
       setFavMovies(data.favUserMovies)

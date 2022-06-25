@@ -64,13 +64,13 @@
   }
 
   .movInfo {
-    padding: 1rem 0.7rem 0.3rem 1rem;
+    padding: 0.1rem 0.3rem ;
     /* background-color: black;
     color: white; */
   
     text-align: left;
     
-    max-width: 90%;
+    max-width: 60%;
    
     
   }

@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthenticationProv';
 function InfoMovie({movie}) {
   const activeUser = useAuth();
   return (
-    <div className={style.movInfo}>
+    <>
       <div>
         <h2>{movie.title}</h2>
         
@@ -18,7 +18,7 @@ function InfoMovie({movie}) {
         <p><i>{movie.category}</i> &ensp; |&ensp;  ★ {movie.rating}</p>
       </div>
      
-    </div>
+    </>
     )
   }
 

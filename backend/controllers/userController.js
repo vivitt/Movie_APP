@@ -7,54 +7,37 @@ const userModel = require('../models/User')
 const movieModel = require('../models/Movie');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"))
-
 app.use(express.json());
 
-
-
 async function getFavorites (req, res) {
-    
     try {
-        
         let userID = req.user.id;
         const user = await userModel.findOne({_id: userID}).populate('favMovies');
         const favUserMovies = user.favMovies;
-        
-      
-       
-      
         if (favUserMovies.length >0 ) {
             return res.json({favUserMovies});
         } else res.send('You have not favorites yet !')
-    
     } catch (err) {
         console.log(err)
         }
     };
 
-
 async function addToFavorites (req, res) {
     try {
     let userId = req.user.id;
     let movie = await movieModel.findOne({title: req.params.movie})
-    
     let favmovie = await userModel.findOne({favMovies : movie._id})
     if(!favmovie) {
         await userModel.updateOne({_id: userId}, { $push: { favMovies: movie._id }})
-         
         return res.status(200).json({
             title: req.params.movie ,
             id: movie._id,
           });
         }
-        
     } catch (err) {
         console.log(err)
-        }
+    }
 }
-
-
-    
 async function removeFromFavorites (req, res) {
     try {
         let userId = req.user._id;
@@ -64,13 +47,9 @@ async function removeFromFavorites (req, res) {
             title: req.params.movie ,
             id: movie._id,
           });
-        } catch (err) {
-            console.log(err)
-            }
+    } catch (err) {
+        console.log(err)
+    }
 }
-
-
-
-
 module.exports = { getFavorites, addToFavorites, removeFromFavorites }
 

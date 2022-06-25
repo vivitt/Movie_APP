@@ -1,14 +1,13 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
+import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useFavContext } from '../context/FavContextProv';
 
 
-export default function Message( { addToFavs, mssg, openMessage, setOpenMessage }) {
+export default function UserMssg( { mssg, openMessage, setOpenMessage }) {
   
-  const userFavs = useFavContext();
+
   const [state, setState] = React.useState({
     open: true,
     vertical: 'top',
@@ -26,9 +25,7 @@ export default function Message( { addToFavs, mssg, openMessage, setOpenMessage 
   const action = (
     <React.Fragment>
       
-      <Button color="primary" size="small" onClick={addToFavs}>
-        UNDO
-      </Button>
+  
       <IconButton
         size="small"
         aria-label="close"

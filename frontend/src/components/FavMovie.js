@@ -20,7 +20,7 @@ function FavMovie({item, setMssg, setTitle, setOpenMessage }) {
       credentials: "include",
       headers: { 'Content-Type': 'application/json' },
     };
-    fetch(`/users/removefavorites/${item.title}`, requestOptions)
+    fetch(`/api/users/removefavorites/${item.title}`, requestOptions)
       .then(res =>res.json())
       .then(data => {
         if (userFavs.favMovies.length === 1) { userFavs.setFavMovies([{ category: "", poster: "", title: "", plot: "", year: "", rating: "" }])} else {

@@ -9,7 +9,7 @@ function Footer() {
     <Paper variant='elevation0' sx={{backgroundColor:'primary.main'}}>
        
        <div>
-          <p><Link color='secondary'>About MovieApp <GitHubIcon fontSize='small'> </GitHubIcon></Link> </p>
+          <p><Link color='secondary' href='https://github.com/vivitt/Movie_APP#readme' target='blank' ><GitHubIcon fontSize='small'></GitHubIcon>About MovieApp  </Link> </p>
           </div>
           <div><p>© Viviana Yanez 2022 | Made with ♥︎</p></div>
          

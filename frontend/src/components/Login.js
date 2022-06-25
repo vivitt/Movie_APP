@@ -18,7 +18,7 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const Login = ({setLogin, setRegister, open, setOpen, } ) => {
+const Login = ({ setLogin, setRegister, open, setOpen, setOpenMessage, setMssg } ) => {
   
   ////  password visibility icon
   const [ showPassword, setShowPassword ] = useState();
@@ -27,7 +27,7 @@ const Login = ({setLogin, setRegister, open, setOpen, } ) => {
   ///user  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const {authData} = useAuth();
   // const navigate = useNavigate();
   const { onLogin } = useAuth();
   
@@ -45,17 +45,23 @@ const Login = ({setLogin, setRegister, open, setOpen, } ) => {
       body: JSON.stringify({email: email, password: password})
     };
     fetch("/auth/login", requestOptions)
-      .then ( response => response.json()
+      .then ( response  =>  response.json()
+     
       .then(data => {
-        
         onLogin({ email: data.email, name: data.name })
         // navigate('/', {replace: true})
         setEmail('');
-        setPassword('')
+        setPassword('');
+        if (response.status === 200) {
+          setLogin(false);
+        }
         })
+        
       )
       .catch(err => console.log(err))
-      setLogin(false);
+      
+       
+    
 
   } 
   

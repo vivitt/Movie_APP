@@ -13,9 +13,7 @@ import Link from '@mui/material/Link';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-
 import FormControl from '@mui/material/FormControl';
-
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Message from './Message';
@@ -28,7 +26,7 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
   const [password, setPassword] = useState("");
   //ERRR
   const [error, setError] = useState(false);
-  const [errMssg, setErrMssg ] = useState('');
+  const [errMssg, setErrMssg] = useState(null);
   //LOADER
   const [showLoader, setShowLoader] = useState(false);
   ////  password visibility icon
@@ -42,7 +40,7 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
   //register func
   function registerUser(event) {
     event.preventDefault();
-    setError('');
+    
     setShowLoader(true);
     const requestOptions = {
       method: 'POST',
@@ -50,26 +48,51 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
       body: JSON.stringify({name: name, email: email, password: password})
     };
     fetch("/auth/register", requestOptions)
-      .then(response => {
-        if (response.status >= 200 && response.status <= 299) {
-        return response.json()
-        .then ( data => {
-          setName("");
-          setEmail("");
-          setPassword("");
-          setLogin(true);
-          setRegister(false);
+      .then (response  =>  { response.json()
+      .then ( data => {
+        if(response.status === 200) {
+            setName("");
+            setEmail("");
+            setPassword("");
+            setLogin(true);
+            setRegister(false);
+          }
+        
       })
-      } else  {
-        response.text()
-          .then ( data => {
-           
-            setError(true)
-            setErrMssg(data)
-          })
-        }
-      })
-    }
+    })
+      .catch((err) => {
+      setError(true)
+       setErrMssg(err.response.data)
+      
+     })
+  }
+
+//   .then(response => {
+//     if (response.status >= 200 && response.status <= 299) {
+//     return response.json()
+//     .then ( data => {
+//       setName("");
+//       setEmail("");
+//       setPassword("");
+//       setLogin(true);
+//       setRegister(false);
+//   })
+//   } else  {
+//     response.text()
+//       .then ( data => {
+       
+//         setError(true)
+//         setErrMssg(data)
+//       })
+//     }
+//   })
+// }
+
+
+
+
+
+
 
   ///LOGIN LINK
   const showLogin = () => {
@@ -146,7 +169,7 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
           <Button variant='contained' type="submit" onClick={registerUser}>Register</Button>
         
         
-          <p>Allready registered? Please login <Link color='secondary'  onClick={showLogin}>here</Link></p>
+          <p>Already registered? Please login <Link color='secondary'  onClick={showLogin}>here</Link></p>
             </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -160,6 +183,6 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
      
     </div>
   )
-};
+}
 
-export default Register;
+export default Register

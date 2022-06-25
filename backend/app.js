@@ -6,17 +6,14 @@ const app = express();
 const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require("connect-mongo");
-
+const errorController = require('./controllers/errorController');
 // routes
 const moviesRoutes = require('./routes/movies')
 const usersRoutes = require('./routes/users')
 const authRoutes = require('./routes/auth')
-
 // server
 const portName = 'localhost';
 const port = process.env.PORT || 3001;
-
-
 /**
  * ========== CORS SETUP ==========
  */
@@ -81,41 +78,18 @@ app.use(session({
 
 app.use(passport.session())
 
-//app.use(logger('dev'));
-//app.use(cookieParser());
-
-
 mongoose.connect(process.env.DB_SERVER)
 .then(() => console.log("Conected to DB server"))
 .catch((err) => console.log(err));
 
 // routes
-// app.get('/', function(req,res) {return res.redirect('/movies')})
 app.use('/movies', moviesRoutes);
-app.use('/users', usersRoutes);
+app.use('/api/users', usersRoutes);
 app.use('/auth', authRoutes)
 
-// // catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
-
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-// //   // render the error page
-// //   res.status(err.status || 500);
-// //   res.render('error');
-// });
-
-
-
+//ERROR HAnDLER
+app.use(errorController);
 //////////////////
-
-
 
 app.listen(port, portName, (err) => {
   if (err) console.log(err);
@@ -123,3 +97,5 @@ app.listen(port, portName, (err) => {
 })
 
 module.exports = app;
+
+/////

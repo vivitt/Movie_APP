@@ -33,7 +33,7 @@ const UserFavs = ({openMessage, setOpenMessage, mssg, setMssg }) => {
      credentials: "include",
      headers: { 'Content-Type': 'application/json' },
    };
-    fetch(`/users/favorites/${title}`, requestOptions)
+    fetch(`/api/users/favorites/${title}`, requestOptions)
       .then(res =>res.json())
       .then(data => {
         userFavs.getFavs();
@@ -73,14 +73,15 @@ const UserFavs = ({openMessage, setOpenMessage, mssg, setMssg }) => {
     <div className="noFavMssg">
     <p>You don't have favorite movies yet... </p>
     </div>
-     {/* but you can back to the <NavLink to="/">homepage</NavLink> and add some...</p> */}
-     <Button variant="contained" onClick={backToAll}> <ArrowBackIosIcon></ArrowBackIosIcon>All the movies</Button>
+    
+     
      </>
     }
 
 
    
     </Box>
+    <div className='backBtn'><Button variant='contained' onClick={backToAll}> <ArrowBackIosIcon></ArrowBackIosIcon>All the movies</Button></div> 
     </>
   )
 };

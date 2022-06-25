@@ -1,13 +1,13 @@
 
 import SearchBar from "../components/SearchBar";
+import UserMssg from "../components/UserMssg";
 
-import Title from "../components/Title";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthenticationProv";
 import AllTheMovies from "../components/AllTheMovies";
 
 
-const Home = () => {
+const Home = ({openMessage, setOpenMessage, mssg, setMssg} ) => {
   //USER
   const {authData} = useAuth();
   const userName = authData.name
@@ -47,8 +47,9 @@ const Home = () => {
     }
     return (
     <>
-    
-    {/* <Title text={`Hi ${userName}, welcome to MovieApp!`}/> */}
+    {(userName) && (<UserMssg openMessage={openMessage} setOpenMessage={setOpenMessage} mssg={mssg} setMssg={setMssg} ></UserMssg>) }
+
+   
     
     <SearchBar setFiltMovies={setFiltMovies} filtMovies={filtMovies} movies={movies} setMovies={setMovies} dataMovies={dataMovies} setBack={setBack} />
    

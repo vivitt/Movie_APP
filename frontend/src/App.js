@@ -16,7 +16,7 @@ import RequireAuth from "./context/RequireAuth";
 import AuthenticationProv from "./context/AuthenticationProv";
 import Loader from './components/Loader';
 import { useLoader } from './context/LoadContext'
-import About from "./pages/About";
+
 import { useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import { useTheme } from './context/ThemeContext';
@@ -42,10 +42,8 @@ function App() {
             
           <Container maxWidth="lg">
             <FavContextProv >
-            { loading ? ( <Loader />
-            ) : (
-        
-            <main>
+            { loading ?  <Loader />
+             : <main>
               <Routes>
                 <Route path="/" element={<Home openMessage={openMessage} setOpenMessage={setOpenMessage} mssg={mssg}
  setMssg={setMssg} />} /> 
@@ -55,7 +53,7 @@ function App() {
                 <Route path="*" element={<NotFound />} />
                 
               </Routes>
-            </main> )
+            </main> 
           }
           
             </FavContextProv>

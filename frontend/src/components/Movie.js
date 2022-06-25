@@ -32,7 +32,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
           credentials: "include",
           headers: { 'Content-Type': 'application/json' },
         };
-        fetch(`/users/favorites/${item.title}`, requestOptions)
+        fetch(`/api/users/favorites/${item.title}`, requestOptions)
           .then(res =>res.json())
           .then(data => {
             
@@ -48,7 +48,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
           credentials: "include",
           headers: { 'Content-Type': 'application/json' },
         };
-        fetch(`/users/removefavorites/${item.title}`, requestOptions)
+        fetch(`/api/users/removefavorites/${item.title}`, requestOptions)
           .then(res =>res.json())
           .then(data => {
             userFavs.getFavs();
@@ -59,7 +59,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
     return (
         <>
         {(item.title === openMovInf[0].title)
-        ? <Grid item xs="10" xl="auto" >
+        ? <Grid item xs="10" sm="9" md="6" lg="6" xl="6"  >
             <Item>
                 <div className={style.movieItemBig}>
                     
@@ -69,7 +69,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
                         </div>
                     </Button>
                    
-                    <div>
+                    <div className={style.movInfo}>
                     <InfoMovie movie={item} ></InfoMovie>
                     { (activeUser.authData.name) &&
                         <div className={style.favBtn}> 

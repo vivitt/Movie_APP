@@ -1,5 +1,6 @@
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { useTheme } from '../context/ThemeContext';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -13,7 +14,7 @@ export default function ToggleBTN() {
   return (
    <>
       
-      <IconButton sx={{ ml: 1 }} onClick={colorMode.colorMode.toggleColorMode} color="inherit">
+      <IconButton sx={{ ml: 1 }} onClick={colorMode.colorMode.toggleColorMode} color="secondary">
         {colorMode.mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
       </IconButton>
       </>
