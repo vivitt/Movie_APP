@@ -54,6 +54,9 @@ const Login = ({ setLogin, setRegister, open, setOpen, setOpenMessage, setMssg }
         setPassword('');
         if (response.status === 200) {
           setLogin(false);
+          
+          setMssg(`Hi ${data.name.charAt(0).toUpperCase() + data.name.slice(1)}, welcome to MovieApp :)`)
+          setOpenMessage(true);
         }
         })
         

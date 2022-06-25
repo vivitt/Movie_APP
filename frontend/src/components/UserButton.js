@@ -31,7 +31,7 @@ function UserButton( { setOpenMessage, setMssg, mssg, openMessage} ) {
         fetch('/auth/logout', requestOptions)
         .then(res => {if (res.status === 200) {
             
-            // setMssg(`Bye ${authData.name.charAt(0).toUpperCase() + authData.name.slice(1)}, see you soon!`)
+            setMssg(`Bye ${authData.name.charAt(0).toUpperCase() + authData.name.slice(1)}, see you soon!`)
         setAuthData({name:"", email: ""})}})
         setOpenMessage(true);
      

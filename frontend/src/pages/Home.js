@@ -10,7 +10,7 @@ import AllTheMovies from "../components/AllTheMovies";
 const Home = ({openMessage, setOpenMessage, mssg, setMssg} ) => {
   //USER
   const {authData} = useAuth();
-  const userName = authData.name
+  const userName = authData.name;
   //const userName = authData.name.charAt(0).toUpperCase() + authData.name.slice(1); 
   
  
