@@ -84,7 +84,7 @@ mongoose.connect(process.env.DB_SERVER)
 
 // routes
 app.use('/movies', moviesRoutes);
-app.use('/users', usersRoutes);
+app.use('/api/users', usersRoutes);
 app.use('/auth', authRoutes)
 
 //ERROR HAnDLER

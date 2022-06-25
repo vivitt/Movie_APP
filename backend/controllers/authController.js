@@ -23,12 +23,13 @@ async function registerNewUser (req, res, next) {
             email: req.body.email,
             password: hashedPassword       
         })
-        res.status(200).json({
+        
+        res.status(200).send({
             email: user.email,
             name: user.name,
         })
     } catch (err) {
-        res.send(err)
+        res.status(400).send(err)
     }
 }
 

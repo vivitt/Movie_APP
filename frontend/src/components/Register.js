@@ -40,7 +40,7 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
   //register func
   function registerUser(event) {
     event.preventDefault();
-    setError(false);
+    
     setShowLoader(true);
     const requestOptions = {
       method: 'POST',
@@ -48,25 +48,52 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
       body: JSON.stringify({name: name, email: email, password: password})
     };
     fetch("/auth/register", requestOptions)
-      .then(response => {
+      .then (response  =>  { response.json()
+      .then ( data => {
+        if(response.status === 200) {
+            setName("");
+            setEmail("");
+            setPassword("");
+            setLogin(true);
+            setRegister(false);
+          }
         
-        if (response.status === 200) {
-          setLogin(true);
-          setRegister(false);
-          setName("");
-          setEmail("");
-          setPassword("");
-        }
       })
-
-      
+    })
       .catch((err) => {
-       setError(true)
-        setErrMssg(err.response.data)
-        console.log(errMssg)
-      })
-    
+      setError(true)
+       setErrMssg(err.response.data)
+      
+     })
   }
+
+//   .then(response => {
+//     if (response.status >= 200 && response.status <= 299) {
+//     return response.json()
+//     .then ( data => {
+//       setName("");
+//       setEmail("");
+//       setPassword("");
+//       setLogin(true);
+//       setRegister(false);
+//   })
+//   } else  {
+//     response.text()
+//       .then ( data => {
+       
+//         setError(true)
+//         setErrMssg(data)
+//       })
+//     }
+//   })
+// }
+
+
+
+
+
+
+
   ///LOGIN LINK
   const showLogin = () => {
       setLogin(true);
@@ -156,6 +183,6 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
      
     </div>
   )
-};
+}
 
-export default Register;
+export default Register

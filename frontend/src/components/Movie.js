@@ -32,7 +32,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
           credentials: "include",
           headers: { 'Content-Type': 'application/json' },
         };
-        fetch(`/users/favorites/${item.title}`, requestOptions)
+        fetch(`/api/users/favorites/${item.title}`, requestOptions)
           .then(res =>res.json())
           .then(data => {
             
@@ -48,7 +48,7 @@ function Movie({item, openMovInf, setOpenMovInf }) {
           credentials: "include",
           headers: { 'Content-Type': 'application/json' },
         };
-        fetch(`/users/removefavorites/${item.title}`, requestOptions)
+        fetch(`/api/users/removefavorites/${item.title}`, requestOptions)
           .then(res =>res.json())
           .then(data => {
             userFavs.getFavs();

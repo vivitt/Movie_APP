@@ -33,7 +33,7 @@ const UserFavs = ({openMessage, setOpenMessage, mssg, setMssg }) => {
      credentials: "include",
      headers: { 'Content-Type': 'application/json' },
    };
-    fetch(`/users/favorites/${title}`, requestOptions)
+    fetch(`/api/users/favorites/${title}`, requestOptions)
       .then(res =>res.json())
       .then(data => {
         userFavs.getFavs();

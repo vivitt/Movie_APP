@@ -21,7 +21,9 @@ function AllTheMovies({filtMovies, back, backToAll}) {
                {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} > */}
                   {filtMovies.map(item => (  <Movie item={item} openMovInf={openMovInf} setOpenMovInf={setOpenMovInf} /> )) }
                </Grid>
-               : <div><h3>Nothing here</h3></div>
+               : <div className="noFavMssg">
+               <p>Your search did not match any movie :( </p>
+               </div>
             }
               { (back) && <div className='backBtn'><Button variant='contained' onClick={backToAll}> <ArrowBackIosIcon></ArrowBackIosIcon>All the movies</Button></div> }
          </Box>
