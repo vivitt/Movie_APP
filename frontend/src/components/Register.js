@@ -13,9 +13,7 @@ import Link from '@mui/material/Link';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-
 import FormControl from '@mui/material/FormControl';
-
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Message from './Message';
@@ -42,7 +40,7 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
   //register func
   function registerUser(event) {
     event.preventDefault();
-    setError('');
+    setError(false);
     setShowLoader(true);
     const requestOptions = {
       method: 'POST',
@@ -52,25 +50,22 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
     fetch("/auth/register", requestOptions)
       .then(response => {
         
-        response.json()
-        .then ( data => {
+        if (response.status === 200) {
+          setLogin(true);
+          setRegister(false);
           setName("");
           setEmail("");
           setPassword("");
-          setLogin(true);
-          setRegister(false);
+        }
       })
-       
+
       
-      .catch(err => {
-      
-      setError(true)
-      
-      console.log(errMssg)
-      response.text()
-      setErrMssg(err.response.data)
+      .catch((err) => {
+       setError(true)
+        setErrMssg(err.response.data)
+        console.log(errMssg)
       })
-    })
+    
   }
   ///LOGIN LINK
   const showLogin = () => {
@@ -147,7 +142,7 @@ const Register = ({setLogin, setRegister, open, setOpen }) => {
           <Button variant='contained' type="submit" onClick={registerUser}>Register</Button>
         
         
-          <p>Allready registered? Please login <Link color='secondary'  onClick={showLogin}>here</Link></p>
+          <p>Already registered? Please login <Link color='secondary'  onClick={showLogin}>here</Link></p>
             </DialogContentText>
         </DialogContent>
         <DialogActions>

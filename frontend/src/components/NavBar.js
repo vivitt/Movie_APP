@@ -18,7 +18,7 @@ import ToggleBTN from './ToggleBTN';
 
 
 
-const NavBar = () => {
+const NavBar = ({ setOpenMessage,  setMssg, mssg, openMessage} ) => {
   const { authData } = useAuth();
   const [anchorElNav, setAnchorElNav] = React.useState()
 
@@ -137,7 +137,8 @@ const NavBar = () => {
                   My favs ♥️
                 </Button>
                  }
-                  <UserButton></UserButton>
+                 
+                  <UserButton setOpenMessage={setOpenMessage} setMssg={setMssg} mssg={mssg} openMessage={openMessage} ></UserButton>
                 {/* <Button key='about'
                 color='secondary'
                 onClick={handleCloseNavMenu}

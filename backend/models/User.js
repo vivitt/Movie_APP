@@ -44,14 +44,6 @@ userSchema.pre('save', async function(next) {
       next();
 });
 
-userSchema.post('save', function(error, doc, next) {
-    
-    if (error.name === 'ValidationError' ) {
-    console.log('There was a validation error', error);
-    
-    } else {
-      next();
-    }
-  });
+
 
 module.exports = new mongoose.model("User", userSchema)
