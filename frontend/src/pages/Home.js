@@ -1,7 +1,7 @@
 
 import SearchBar from "../components/SearchBar";
 import UserMssg from "../components/UserMssg";
-
+import { useFavContext } from "../context/FavContextProv";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthenticationProv";
 import AllTheMovies from "../components/AllTheMovies";
@@ -21,6 +21,7 @@ const Home = ({openMessage, setOpenMessage, mssg, setMssg} ) => {
   const [ dataMovies, setDataMovies ] = useState([]);
   const [ back, setBack ] = useState(false)
 
+  const userFavs = useFavContext();
   
 
   const getMovies = () => {
@@ -39,7 +40,8 @@ const Home = ({openMessage, setOpenMessage, mssg, setMssg} ) => {
     useEffect(() => {
     getMovies();
    }, [])
-   
+   useEffect(() => {userFavs.getFavs()}, [])
+
     const backToAll = (event) => {
       event.preventDefault();
       setFiltMovies([...dataMovies])
